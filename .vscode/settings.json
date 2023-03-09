@@ -1,0 +1,10 @@
+{
+  "go.lintTool": "golangci-lint",
+  "go.lintFlags": [
+    "--fast"
+  ],
+  "editor.rulers": [
+    80,
+    120
+  ]
+}
