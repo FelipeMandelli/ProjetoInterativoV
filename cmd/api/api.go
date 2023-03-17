@@ -67,5 +67,4 @@ func main() {
 	if err := errorGroup.Wait(); err != nil {
 		logger.Fatal("exit reason", zap.Error(err))
 	}
-=
 }

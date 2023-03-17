@@ -17,5 +17,5 @@ func main() {
 		log.Fatal("error creating logger")
 	}
 
-	logger.Info("This is the core application!")
+	logger.Info("This is the processor application!")
 }
