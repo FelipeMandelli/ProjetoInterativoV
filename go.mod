@@ -2,6 +2,7 @@ module github.com/FelipeMandelli/ProjetoInterativoV
 
 go 1.20
 
+
 require github.com/spf13/viper v1.15.0
 
 require (
@@ -26,3 +27,13 @@ require (
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
+
+require (
+	github.com/go-chi/chi/v5 v5.0.8
+	github.com/mattn/go-runewidth v0.0.4 // indirect
+	github.com/spf13/viper v1.15.0
+	go.uber.org/zap v1.24.0
+	golang.org/x/sync v0.1.0
+	golang.org/x/sys v0.3.0 // indirect
+)
+
