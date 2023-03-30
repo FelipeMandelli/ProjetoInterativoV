@@ -50,7 +50,7 @@ func main() {
 
 	httpServer := &http.Server{
 		Addr:    viper.GetString(config.AddressKey),
-		Handler: services.CreateRouter(),
+		Handler: services.CreateRouter(logger),
 	}
 
 	errorGroup.Go(func() error {
