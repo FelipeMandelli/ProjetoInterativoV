@@ -1,7 +1,7 @@
 package entitys
 
-type Professor struct {
+type Teacher struct {
 	Name string
 	Mail string
-	ID   string
+	ID   int
 }

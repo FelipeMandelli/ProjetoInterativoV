@@ -17,6 +17,9 @@ import (
 )
 
 func main() {
+
+	provider := services.GetProvider()
+
 	zapConfig := zap.NewProductionConfig()
 
 	zapConfig.EncoderConfig.EncodeTime = zapcore.RFC3339TimeEncoder
@@ -25,6 +28,8 @@ func main() {
 	if err != nil {
 		log.Fatal("error creating logger")
 	}
+
+	provider.Log = logger
 
 	logger.Info("This is the gateway application!")
 
@@ -42,14 +47,14 @@ func main() {
 
 	err = config.SetupConfigurations()
 	if err != nil {
-		log.Fatal("error setting up configurations: ", err)
+		logger.Sugar().Fatalf("error setting up configurations: ", err)
 	}
 
 	errorGroup, ctx := errgroup.WithContext(ctx)
 
 	httpServer := &http.Server{
 		Addr:    viper.GetString(config.AddressKey),
-		Handler: services.CreateRouter(logger),
+		Handler: services.CreateRouter(provider),
 	}
 
 	errorGroup.Go(func() error {

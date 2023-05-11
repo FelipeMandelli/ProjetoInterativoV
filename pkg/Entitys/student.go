@@ -1,7 +1,10 @@
 package entitys
 
 type Student struct {
-	Name string
-	Mail string
-	ID   string
+	ID        int
+	Name      string
+	Document  string
+	Mail      string
+	Cellphone string
+	Course    int
 }

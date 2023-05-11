@@ -1,48 +1,34 @@
 package services
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	"go.uber.org/zap"
 )
 
 const (
-	sudentEndpoint = "/student"
-	newEndpoint    = "/new"
+	healthPath     = "/health"
+	newPath        = "/new"
+	studentPath    = "/student"
+	teacherPath    = "/teacher"
+	attendancePath = "/attendance"
 )
 
-type Handler struct {
-	*zap.Logger
-}
-
-func CreateRouter(logger *zap.Logger) http.Handler {
-	handler := Handler{Logger: logger}
+func CreateRouter(provider *Provider) http.Handler {
+	handler := Handler{Provider: provider}
 
 	r := chi.NewRouter()
 
-	r.Route(sudentEndpoint, func(r chi.Router) {
-		r.Get("/", handlerF)
+	r.Get(healthPath, handler.HealthCheckHandler)
 
-		r.Route("/teste", func(r chi.Router) {
-			r.Get("/", handlerF)
-		})
+	r.Route(attendancePath, func(r chi.Router) {
+		r.Post("/", handler.AttendanceHandler)
 	})
 
-	r.Put(newEndpoint, handler.newUser)
+	r.Route(newPath, func(r chi.Router) {
+		r.Post(studentPath, handler.NewStudentHandler)
+		r.Post(teacherPath, handler.NewTeacherHandler)
+	})
 
 	return r
-}
-
-func handlerF(w http.ResponseWriter, r *http.Request) {
-	resp, _ := json.Marshal("OK!")
-
-	w.Write(resp)
-}
-
-func (h *Handler) newUser(w http.ResponseWriter, r *http.Request) {
-	query := r.URL.Query()
-	query.Get("")
-
 }

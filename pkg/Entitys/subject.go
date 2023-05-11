@@ -1,7 +1,7 @@
 package entitys
 
 type Subject struct {
-	Professor
+	Teacher
 	Classroom        string
 	EnrolledStudents []Student
 }
