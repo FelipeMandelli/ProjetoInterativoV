@@ -7,8 +7,7 @@ import (
 )
 
 const (
-	basePath = "cmd/gateway/config"
-	//	basePath   = "config"
+	basePath   = "config"
 	AddressKey = "ADDRESS"
 )
 

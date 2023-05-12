@@ -17,7 +17,6 @@ import (
 )
 
 func main() {
-
 	provider := services.GetProvider()
 
 	zapConfig := zap.NewProductionConfig()
@@ -32,6 +31,9 @@ func main() {
 	provider.Log = logger
 
 	logger.Info("This is the gateway application!")
+
+	go services.Packager(provider)
+	go services.PackageSender(provider)
 
 	ctx, stopCtx := context.WithCancel(context.Background())
 
