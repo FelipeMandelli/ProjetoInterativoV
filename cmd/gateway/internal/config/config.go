@@ -7,8 +7,9 @@ import (
 )
 
 const (
-	basePath   = "config"
-	AddressKey = "ADDRESS"
+	basePath     = "config"
+	AddressKey   = "ADDRESS"
+	TimeFormater = "02-01-2006 15:04:05"
 )
 
 func SetupConfigurations() error {
