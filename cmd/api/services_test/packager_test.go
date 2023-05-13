@@ -3,8 +3,8 @@ package services_test
 import (
 	"testing"
 
-	domain "github.com/FelipeMandelli/ProjetoInterativoV/cmd/gateway/internal/domain/rest"
-	"github.com/FelipeMandelli/ProjetoInterativoV/cmd/gateway/internal/services"
+	domain "github.com/FelipeMandelli/ProjetoInterativoV/cmd/api/internal/domain/rest"
+	"github.com/FelipeMandelli/ProjetoInterativoV/cmd/api/internal/services"
 	"github.com/stretchr/testify/assert"
 )
 

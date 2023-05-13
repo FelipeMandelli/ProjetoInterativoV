@@ -7,8 +7,10 @@ import (
 )
 
 const (
-	basePath   = "cmd/api/config"
-	AddressKey = "ADDRESS"
+	basePath      = "config"
+	AddressKey    = "ADDRESS"
+	PesistenceKey = "PERSISTENCE_ADDRES"
+	TimeFormater  = "02-01-2006 15:04:05"
 )
 
 func SetupConfigurations() error {

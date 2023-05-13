@@ -8,8 +8,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/FelipeMandelli/ProjetoInterativoV/cmd/api/internal/config"
-	"github.com/FelipeMandelli/ProjetoInterativoV/cmd/api/internal/services"
+	"github.com/FelipeMandelli/ProjetoInterativoV/cmd/persistence/internal/config"
+	"github.com/FelipeMandelli/ProjetoInterativoV/cmd/persistence/internal/services"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -17,6 +17,8 @@ import (
 )
 
 func main() {
+	provider := services.GetProvider()
+
 	zapConfig := zap.NewProductionConfig()
 
 	zapConfig.EncoderConfig.EncodeTime = zapcore.RFC3339TimeEncoder
@@ -24,10 +26,11 @@ func main() {
 	logger, err := zapConfig.Build()
 	if err != nil {
 		log.Fatal("error creating logger")
-		os.Exit(1)
 	}
 
-	logger.Info("This is the API appliction!")
+	provider.Log = logger
+
+	logger.Info("This is the persistence application!")
 
 	ctx, stopCtx := context.WithCancel(context.Background())
 
@@ -43,14 +46,14 @@ func main() {
 
 	err = config.SetupConfigurations()
 	if err != nil {
-		log.Fatal("error setting up configurations: ", err)
+		logger.Sugar().Fatalf("error setting up configurations: ", err)
 	}
 
 	errorGroup, ctx := errgroup.WithContext(ctx)
 
 	httpServer := &http.Server{
 		Addr:    viper.GetString(config.AddressKey),
-		Handler: services.CreateRouter(logger),
+		Handler: services.CreateRouter(provider),
 	}
 
 	errorGroup.Go(func() error {

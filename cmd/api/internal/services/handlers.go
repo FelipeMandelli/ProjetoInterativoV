@@ -5,7 +5,7 @@ import (
 	"io"
 	"net/http"
 
-	domain "github.com/FelipeMandelli/ProjetoInterativoV/cmd/gateway/internal/domain/rest"
+	domain "github.com/FelipeMandelli/ProjetoInterativoV/cmd/api/internal/domain/rest"
 	entitys "github.com/FelipeMandelli/ProjetoInterativoV/pkg/Entitys"
 )
 
@@ -39,7 +39,7 @@ func (h *Handler) AttendanceHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
-	resp, err := json.Marshal("Healthy!")
+	resp, err := json.Marshal("API is Healthy!")
 	if err != nil {
 		h.Provider.Log.Sugar().Errorf("error marshalling response: %s", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)

@@ -8,8 +8,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/FelipeMandelli/ProjetoInterativoV/cmd/gateway/internal/config"
-	"github.com/FelipeMandelli/ProjetoInterativoV/cmd/gateway/internal/services"
+	"github.com/FelipeMandelli/ProjetoInterativoV/cmd/api/internal/config"
+	"github.com/FelipeMandelli/ProjetoInterativoV/cmd/api/internal/services"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -30,7 +30,7 @@ func main() {
 
 	provider.Log = logger
 
-	logger.Info("This is the gateway application!")
+	logger.Info("This is the api application!")
 
 	go services.Packager(provider)
 	go services.PackageSender(provider)

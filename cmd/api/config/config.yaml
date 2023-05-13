@@ -1,1 +1,3 @@
-ADDRESS: localhost:9015
+ADDRESS: "localhost:9015"
+PERSISTENCE_ADDRES: "http://127.0.0.1:8015/sendAttendance"
+#ADDRESS: "192.168.0.12:9015"

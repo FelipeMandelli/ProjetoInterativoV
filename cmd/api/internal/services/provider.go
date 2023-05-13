@@ -1,7 +1,7 @@
 package services
 
 import (
-	domain "github.com/FelipeMandelli/ProjetoInterativoV/cmd/gateway/internal/domain/rest"
+	domain "github.com/FelipeMandelli/ProjetoInterativoV/cmd/api/internal/domain/rest"
 	dto "github.com/FelipeMandelli/ProjetoInterativoV/pkg/DTO"
 	"go.uber.org/zap"
 )

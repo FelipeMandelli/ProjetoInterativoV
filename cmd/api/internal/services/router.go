@@ -12,12 +12,22 @@ const (
 	studentPath    = "/student"
 	teacherPath    = "/teacher"
 	attendancePath = "/attendance"
+	contentTypeHeader = "Content-Type"
+	jsonContentType = "application/json"
 )
 
 func CreateRouter(provider *Provider) http.Handler {
 	handler := Handler{Provider: provider}
 
 	r := chi.NewRouter()
+
+	r.Use(func(next http.Handler) http.Handler {
+        return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+            w.Header().Set(contentTypeHeader, jsonContentType)
+            next.ServeHTTP(w, r)
+        })
+    })
+
 
 	r.Get(healthPath, handler.HealthCheckHandler)
 
