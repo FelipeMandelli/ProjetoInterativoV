@@ -32,6 +32,11 @@ func main() {
 
 	logger.Info("This is the persistence application!")
 
+	err = config.SetupConfigurations()
+	if err != nil {
+		logger.Sugar().Fatalf("error setting up configurations: ", err)
+	}
+
 	ctx, stopCtx := context.WithCancel(context.Background())
 
 	go func() {
@@ -44,17 +49,17 @@ func main() {
 		stopCtx()
 	}()
 
-	err = config.SetupConfigurations()
-	if err != nil {
-		logger.Sugar().Fatalf("error setting up configurations: ", err)
-	}
-
 	errorGroup, ctx := errgroup.WithContext(ctx)
 
 	httpServer := &http.Server{
 		Addr:    viper.GetString(config.AddressKey),
 		Handler: services.CreateRouter(provider),
 	}
+
+	errorGroup.Go(func() error {
+		logger.Info("starting DB connection")
+		return services.ConnectDatabase(provider)
+	})
 
 	errorGroup.Go(func() error {
 		logger.Info("serving API on " + httpServer.Addr)

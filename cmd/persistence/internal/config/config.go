@@ -9,6 +9,11 @@ import (
 const (
 	basePath     = "config"
 	AddressKey   = "ADDRESS"
+	DBUserKey    = "DB_USER"
+	DBPassKey    = "DB_PASS"
+	DBHostKey    = "DB_HOST"
+	DBPortKey    = "DB_PORT"
+	DBNameKey    = "DB_NAME"
 	TimeFormater = "02-01-2006 15:04:05"
 )
 

@@ -24,7 +24,7 @@ func (h *Handler) AttendanceHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	receivedBody := new(domain.RequestBody)
+	receivedBody := new(domain.AttendanceRequest)
 
 	if err := json.Unmarshal(body, &receivedBody); err != nil {
 		h.Provider.Log.Sugar().Error("error unmarshalling request body")

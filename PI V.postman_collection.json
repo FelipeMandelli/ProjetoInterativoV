@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "6b7baf1a-5458-4094-b65e-9187425cd52c",
+		"name": "PI V",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20873111"
+	},
+	"item": [
+		{
+			"name": "Request API",
+			"item": [
+				{
+					"name": "GET - Health Check",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}:9015/health",
+							"host": [
+								"{{url}}"
+							],
+							"port": "9015",
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST - Attendance",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tag\":\"123\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}:9015/attendance",
+							"host": [
+								"{{url}}"
+							],
+							"port": "9015",
+							"path": [
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST - New Student",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}"
+						},
+						"url": {
+							"raw": "{{url}}:9015/new/student",
+							"host": [
+								"{{url}}"
+							],
+							"port": "9015",
+							"path": [
+								"new",
+								"student"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST - New Teacher",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}:9015/new/teacher",
+							"host": [
+								"{{url}}"
+							],
+							"port": "9015",
+							"path": [
+								"new",
+								"teacher"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Request Persistence",
+			"item": [
+				{
+					"name": "GET - Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}:8015/health",
+							"host": [
+								"{{url}}"
+							],
+							"port": "8015",
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}:8015/sendAttendance",
+							"host": [
+								"{{url}}"
+							],
+							"port": "8015",
+							"path": [
+								"sendAttendance"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

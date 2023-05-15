@@ -11,13 +11,13 @@ import (
 func TestPackager(t *testing.T) {
 	// Arrange
 	provider := services.GetProvider()
-	body1 := domain.RequestBody{
+	body1 := domain.AttendanceRequest{
 		Tag: "123",
 	}
-	body2 := domain.RequestBody{
+	body2 := domain.AttendanceRequest{
 		Tag: "321",
 	}
-	body3 := domain.RequestBody{
+	body3 := domain.AttendanceRequest{
 		Tag: "456",
 	}
 	expectedStr := "123"
@@ -40,13 +40,13 @@ func TestPackager(t *testing.T) {
 func TestMultiplePackager(t *testing.T) {
 	// Arrange
 	provider := services.GetProvider()
-	body1 := domain.RequestBody{
+	body1 := domain.AttendanceRequest{
 		Tag: "123",
 	}
-	body2 := domain.RequestBody{
+	body2 := domain.AttendanceRequest{
 		Tag: "321",
 	}
-	body3 := domain.RequestBody{
+	body3 := domain.AttendanceRequest{
 		Tag: "456",
 	}
 	expectedStr1 := "123"
