@@ -11,7 +11,7 @@ func Packager(provider *Provider) {
 
 		receivedBody := <-provider.RequestBodyChan
 
-		attendancePack.FirstID = receivedBody.Tag
+		attendancePack.TeacherID = receivedBody.Tag
 
 		control := 0
 
@@ -19,13 +19,13 @@ func Packager(provider *Provider) {
 			if control == 0 {
 				control++
 			} else {
-				attendancePack.AttendanceID = append(attendancePack.AttendanceID, receivedBody.Tag)
+				attendancePack.AttendanceIDs = append(attendancePack.AttendanceIDs, receivedBody.Tag)
 
 			}
 
 			receivedBody = <-provider.RequestBodyChan
 
-			if receivedBody.Tag == attendancePack.FirstID {
+			if receivedBody.Tag == attendancePack.TeacherID {
 				break
 			}
 		}

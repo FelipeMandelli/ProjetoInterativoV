@@ -13,7 +13,8 @@ import (
 )
 
 const (
-	postMehod = "POST"
+	postMehod     = "POST"
+	retryInterval = 2
 )
 
 func PackageSender(provider *Provider) {
@@ -24,16 +25,16 @@ func PackageSender(provider *Provider) {
 
 		provider.Log.Sugar().Infof("package to be sent: %+v", pack)
 
-		status, err := sendPackToPersist(pack)
+		status, err := sendPackToPersist(provider, pack)
 		if err != nil {
-			provider.Log.Sugar().Error("error sending to Persist", err)
+			provider.Log.Sugar().Error("error sending to Persist: ", err)
 		}
 
 		provider.Log.Sugar().Infof("status received: %s", status)
 	}
 }
 
-func sendPackToPersist(pack dto.PackagerDTO) (string, error) {
+func sendPackToPersist(p *Provider, pack dto.PackagerDTO) (string, error) {
 	encodedPack, err := json.Marshal(pack)
 	if err != nil {
 		return "", fmt.Errorf("error encoding to json: %w", err)
@@ -46,17 +47,22 @@ func sendPackToPersist(pack dto.PackagerDTO) (string, error) {
 
 	client := http.DefaultClient
 
-	resp, err := client.Do(req)
-	if err != nil {
-		return "", fmt.Errorf("error in request: %w", err)
+	var resp *http.Response
+
+	for i := 1; i <= viper.GetInt(config.RetryKey); i++ {
+		p.Log.Sugar().Infof("trying to send request %d", i)
+
+		resp, err = client.Do(req)
+		if err == nil && resp.StatusCode == http.StatusOK {
+			defer resp.Body.Close()
+			return resp.Status, nil
+		}
+
+		time.Sleep(time.Second * retryInterval)
 	}
+	return "", fmt.Errorf("error while making http request: %w", err)
+}
 
-	// body, err := io.ReadAll(resp.Body)
-	// if err != nil {
-	// 	return fmt.Errorf("error reading response: %w", err)
-	// }
+func RegistrySender(provider *Provider) {
 
-	resp.Body.Close()
-
-	return resp.Status, nil
 }

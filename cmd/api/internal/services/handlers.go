@@ -51,8 +51,8 @@ func (h *Handler) HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(resp)
 }
 
-func (h *Handler) NewStudentHandler(w http.ResponseWriter, r *http.Request) {
-	h.Provider.Log.Debug("Received New Student request!")
+func (h *Handler) NewRegistryHandler(w http.ResponseWriter, r *http.Request) {
+	h.Provider.Log.Debug("Received New Registry request!")
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		h.Provider.Log.Sugar().Error("error reading request body")
@@ -61,7 +61,7 @@ func (h *Handler) NewStudentHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	receivedBody := new(entitys.Student)
+	receivedBody := new(entitys.Resgistry)
 
 	if err := json.Unmarshal(body, &receivedBody); err != nil {
 		h.Provider.Log.Sugar().Error("error unmarshalling request body")
@@ -70,27 +70,66 @@ func (h *Handler) NewStudentHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	h.Provider.Log.Sugar().Infof("received info: %+v", receivedBody)
-}
-
-func (h *Handler) NewTeacherHandler(w http.ResponseWriter, r *http.Request) {
-	h.Provider.Log.Debug("Received New Teacher request!")
-	body, err := io.ReadAll(r.Body)
-	if err != nil {
-		h.Provider.Log.Sugar().Error("error reading request body")
-		w.WriteHeader(http.StatusInternalServerError)
-
-		return
-	}
-
-	receivedBody := new(entitys.Teacher)
-
-	if err := json.Unmarshal(body, &receivedBody); err != nil {
-		h.Provider.Log.Sugar().Error("error unmarshalling request body")
+	if !receivedBody.IsValidRole() {
+		h.Provider.Log.Sugar().Warnf("invalid received [role] for registration: %+v", receivedBody.Role)
 		w.WriteHeader(http.StatusBadRequest)
-
 		return
 	}
 
-	h.Provider.Log.Sugar().Infof("received info: %+v", receivedBody)
+	switch receivedBody.Role {
+	case entitys.StudentRole:
+		if !receivedBody.IsValidCourse() {
+			h.Provider.Log.Sugar().Warnf("invalid received [course] for registration: %+v", receivedBody.Course)
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+	case entitys.TeacherRole:
+		receivedBody.Course = ""
+	}
+
+	h.Provider.Log.Sugar().Infof("received info: %+v", *receivedBody)
 }
+
+// func (h *Handler) NewStudentHandler(w http.ResponseWriter, r *http.Request) {
+// 	h.Provider.Log.Debug("Received New Student request!")
+// 	body, err := io.ReadAll(r.Body)
+// 	if err != nil {
+// 		h.Provider.Log.Sugar().Error("error reading request body")
+// 		w.WriteHeader(http.StatusInternalServerError)
+
+// 		return
+// 	}
+
+// 	receivedBody := new(entitys.Student)
+
+// 	if err := json.Unmarshal(body, &receivedBody); err != nil {
+// 		h.Provider.Log.Sugar().Error("error unmarshalling request body")
+// 		w.WriteHeader(http.StatusBadRequest)
+
+// 		return
+// 	}
+
+// 	h.Provider.Log.Sugar().Infof("received info: %+v", receivedBody)
+// }
+
+// func (h *Handler) NewTeacherHandler(w http.ResponseWriter, r *http.Request) {
+// 	h.Provider.Log.Debug("Received New Teacher request!")
+// 	body, err := io.ReadAll(r.Body)
+// 	if err != nil {
+// 		h.Provider.Log.Sugar().Error("error reading request body")
+// 		w.WriteHeader(http.StatusInternalServerError)
+
+// 		return
+// 	}
+
+// 	receivedBody := new(entitys.Teacher)
+
+// 	if err := json.Unmarshal(body, &receivedBody); err != nil {
+// 		h.Provider.Log.Sugar().Error("error unmarshalling request body")
+// 		w.WriteHeader(http.StatusBadRequest)
+
+// 		return
+// 	}
+
+// 	h.Provider.Log.Sugar().Infof("received info: %+v", receivedBody)
+// }

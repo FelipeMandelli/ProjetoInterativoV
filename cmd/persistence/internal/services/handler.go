@@ -35,14 +35,14 @@ func (h *Handler) AttendanceReceiveHandler(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
-	receivePack := new(dto.PackagerDTO)
+	receivedPack := new(dto.PackagerDTO)
 
-	if err := json.Unmarshal(body, &receivePack); err != nil {
+	if err := json.Unmarshal(body, &receivedPack); err != nil {
 		h.Provider.Log.Sugar().Error("error unmarshalling received pack")
 		w.WriteHeader(http.StatusBadRequest)
 
 		return
 	}
 
-	h.Provider.Log.Sugar().Infof("received info: %+v", receivePack)
+	h.Provider.Log.Sugar().Infof("received info: %+v", *receivedPack)
 }

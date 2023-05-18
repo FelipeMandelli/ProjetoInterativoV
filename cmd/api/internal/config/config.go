@@ -10,6 +10,7 @@ const (
 	basePath      = "config"
 	AddressKey    = "ADDRESS"
 	PesistenceKey = "PERSISTENCE_ADDRES"
+	RetryKey      = "PERSISTENCE_RETRY"
 	TimeFormater  = "02-01-2006 15:04:05"
 )
 

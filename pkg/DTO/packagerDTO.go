@@ -1,7 +1,7 @@
 package dto
 
 type PackagerDTO struct {
-	SendingTime  string
-	FirstID      string
-	AttendanceID []string
+	SendingTime   string
+	TeacherID     string
+	AttendanceIDs []string
 }

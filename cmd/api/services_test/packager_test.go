@@ -33,8 +33,8 @@ func TestPackager(t *testing.T) {
 	got := <-provider.PackChan
 
 	// Assert
-	assert.Equal(t, got.FirstID, expectedStr)
-	assert.Equal(t, expectedArr, got.AttendanceID)
+	assert.Equal(t, got.TeacherID, expectedStr)
+	assert.Equal(t, expectedArr, got.AttendanceIDs)
 }
 
 func TestMultiplePackager(t *testing.T) {
@@ -72,8 +72,8 @@ func TestMultiplePackager(t *testing.T) {
 	got2 := <-provider.PackChan
 
 	// Assert
-	assert.Equal(t, expectedStr1, got1.FirstID)
-	assert.Equal(t, expectedArr1, got1.AttendanceID)
-	assert.Equal(t, expectedStr2, got2.FirstID)
-	assert.Equal(t, expectedArr2, got2.AttendanceID)
+	assert.Equal(t, expectedStr1, got1.TeacherID)
+	assert.Equal(t, expectedArr1, got1.AttendanceIDs)
+	assert.Equal(t, expectedStr2, got2.TeacherID)
+	assert.Equal(t, expectedArr2, got2.AttendanceIDs)
 }

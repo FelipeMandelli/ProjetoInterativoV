@@ -14,6 +14,7 @@ const (
 	DBHostKey    = "DB_HOST"
 	DBPortKey    = "DB_PORT"
 	DBNameKey    = "DB_NAME"
+	DBEnablerKey = "ENABLE_DB"
 	TimeFormater = "02-01-2006 15:04:05"
 )
 

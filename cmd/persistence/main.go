@@ -22,6 +22,7 @@ func main() {
 	zapConfig := zap.NewProductionConfig()
 
 	zapConfig.EncoderConfig.EncodeTime = zapcore.RFC3339TimeEncoder
+	zapConfig.Level, _ = zap.ParseAtomicLevel("debug")
 
 	logger, err := zapConfig.Build()
 	if err != nil {
@@ -31,11 +32,6 @@ func main() {
 	provider.Log = logger
 
 	logger.Info("This is the persistence application!")
-
-	err = config.SetupConfigurations()
-	if err != nil {
-		logger.Sugar().Fatalf("error setting up configurations: ", err)
-	}
 
 	ctx, stopCtx := context.WithCancel(context.Background())
 
@@ -49,6 +45,19 @@ func main() {
 		stopCtx()
 	}()
 
+	err = config.SetupConfigurations()
+	if err != nil {
+		logger.Sugar().Fatalf("error setting up configurations: ", err)
+	}
+
+	if viper.GetBool(config.DBEnablerKey) {
+		logger.Info("starting DB connection...")
+		err = services.ConnectDatabase(provider)
+		if err != nil {
+			logger.Sugar().Fatalf("error crating DataBase connection", err)
+		}
+	}
+
 	errorGroup, ctx := errgroup.WithContext(ctx)
 
 	httpServer := &http.Server{
@@ -57,12 +66,7 @@ func main() {
 	}
 
 	errorGroup.Go(func() error {
-		logger.Info("starting DB connection")
-		return services.ConnectDatabase(provider)
-	})
-
-	errorGroup.Go(func() error {
-		logger.Info("serving API on " + httpServer.Addr)
+		logger.Info("serving Persistence on " + httpServer.Addr)
 		return httpServer.ListenAndServe()
 	})
 
