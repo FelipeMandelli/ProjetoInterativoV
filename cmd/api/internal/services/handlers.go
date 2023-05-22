@@ -18,7 +18,7 @@ func (h *Handler) AttendanceHandler(w http.ResponseWriter, r *http.Request) {
 
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
-		h.Provider.Log.Sugar().Error("error reading request body")
+		h.Provider.Log.Sugar().Error("error reading request body: ", err)
 		w.WriteHeader(http.StatusInternalServerError)
 
 		return
@@ -27,7 +27,7 @@ func (h *Handler) AttendanceHandler(w http.ResponseWriter, r *http.Request) {
 	receivedBody := new(domain.AttendanceRequest)
 
 	if err := json.Unmarshal(body, &receivedBody); err != nil {
-		h.Provider.Log.Sugar().Error("error unmarshalling request body")
+		h.Provider.Log.Sugar().Error("error unmarshalling request body: ", err)
 		w.WriteHeader(http.StatusBadRequest)
 
 		return
@@ -55,7 +55,7 @@ func (h *Handler) NewRegistryHandler(w http.ResponseWriter, r *http.Request) {
 	h.Provider.Log.Debug("Received New Registry request!")
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
-		h.Provider.Log.Sugar().Error("error reading request body")
+		h.Provider.Log.Sugar().Error("error reading request body", err)
 		w.WriteHeader(http.StatusInternalServerError)
 
 		return
@@ -64,7 +64,7 @@ func (h *Handler) NewRegistryHandler(w http.ResponseWriter, r *http.Request) {
 	receivedBody := new(entitys.Resgistry)
 
 	if err := json.Unmarshal(body, &receivedBody); err != nil {
-		h.Provider.Log.Sugar().Error("error unmarshalling request body")
+		h.Provider.Log.Sugar().Error("error unmarshalling request body", err)
 		w.WriteHeader(http.StatusBadRequest)
 
 		return

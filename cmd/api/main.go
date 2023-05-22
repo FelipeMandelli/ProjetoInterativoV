@@ -22,6 +22,7 @@ func main() {
 	zapConfig := zap.NewProductionConfig()
 
 	zapConfig.EncoderConfig.EncodeTime = zapcore.RFC3339TimeEncoder
+	zapConfig.Level = zap.NewAtomicLevelAt(zap.DebugLevel)
 
 	logger, err := zapConfig.Build()
 	if err != nil {

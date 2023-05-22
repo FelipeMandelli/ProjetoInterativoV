@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6b7baf1a-5458-4094-b65e-9187425cd52c",
+		"_postman_id": "c881be91-4612-4377-a439-53cb5bc9b10d",
 		"name": "PI V",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "20873111"
@@ -35,11 +35,11 @@
 							]
 						},
 						"url": {
-							"raw": "{{url}}:9015/health",
+							"raw": "{{url}}:{{api-port}}/health",
 							"host": [
 								"{{url}}"
 							],
-							"port": "9015",
+							"port": "{{api-port}}",
 							"path": [
 								"health"
 							]
@@ -63,11 +63,11 @@
 							"raw": "{\r\n    \"tag\":\"123\"\r\n}"
 						},
 						"url": {
-							"raw": "{{url}}:9015/attendance",
+							"raw": "{{url}}:{{api-port}}/attendance",
 							"host": [
 								"{{url}}"
 							],
-							"port": "9015",
+							"port": "{{api-port}}",
 							"path": [
 								"attendance"
 							]
@@ -76,7 +76,7 @@
 					"response": []
 				},
 				{
-					"name": "POST - New Student",
+					"name": "POST - Novo Aluno EngComp",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -88,24 +88,24 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \r\n}"
+							"raw": "{\r\n    \"Name\":\"Thilove\",\r\n    \"Mail\":\"teste@123.com\",\r\n    \"Role\":\"Aluno\",\r\n    \"Course\":\"Engenharia da Computação\",\r\n    \"Tag\": \"123456789\"\r\n}"
 						},
 						"url": {
-							"raw": "{{url}}:9015/new/student",
+							"raw": "{{url}}:{{api-port}}/new/registry",
 							"host": [
 								"{{url}}"
 							],
-							"port": "9015",
+							"port": "{{api-port}}",
 							"path": [
 								"new",
-								"student"
+								"registry"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "POST - New Teacher",
+					"name": "POST - Novo Aluno EngPrd",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -115,15 +115,106 @@
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\":\"Murillo\",\r\n    \"Mail\":\"123@senac.com\",\r\n    \"Role\":\"Aluno\",\r\n    \"Course\":\"Engenharia de Produção\" ,\r\n    \"Tag\": \"987654321\"\r\n}"
+						},
 						"url": {
-							"raw": "{{url}}:9015/new/teacher",
+							"raw": "{{url}}:{{api-port}}/new/registry",
 							"host": [
 								"{{url}}"
 							],
-							"port": "9015",
+							"port": "{{api-port}}",
 							"path": [
 								"new",
-								"teacher"
+								"registry"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST - Novo Aluno Incorreto",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\":\"Thilove\",\r\n    \"Mail\":\"teste@123.com\",\r\n    \"Role\":\"aluno\",\r\n    \"Course\":\"Administracao\",\r\n    \"Tag\": \"147258369\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}:{{api-port}}/new/registry",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{api-port}}",
+							"path": [
+								"new",
+								"registry"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST - Novo Professor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\":\"Greg\",\r\n    \"Mail\":\"teste@teste.com\",\r\n    \"Role\":\"Professor\",\r\n    \"Course\":\"\" ,\r\n    \"Tag\": \"369258147\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}:{{api-port}}/new/registry",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{api-port}}",
+							"path": [
+								"new",
+								"registry"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST - Novo Professor Com curso",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\":\"Guilherme\",\r\n    \"Mail\":\"teste@123.com\",\r\n    \"Role\":\"Professor\",\r\n    \"Course\":\"Administracao\" ,\r\n    \"Tag\": \"321654987\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}:{{api-port}}/new/registry",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{api-port}}",
+							"path": [
+								"new",
+								"registry"
 							]
 						}
 					},
@@ -140,11 +231,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}:8015/health",
+							"raw": "{{url}}:{{persist-port}}/health",
 							"host": [
 								"{{url}}"
 							],
-							"port": "8015",
+							"port": "{{persist-port}}",
 							"path": [
 								"health"
 							]
@@ -153,16 +244,26 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "POST - Send Attendance",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"SendingTime\":\"18-05-2023 12:41:42\",\r\n    \"TeacherID\": \"123456789\",\r\n    \"AttendanceIDs\": [\r\n        \"987654321\",\r\n        \"963258741\",\r\n        \"741852963\"\r\n    ]\r\n}"
+						},
 						"url": {
-							"raw": "{{url}}:8015/sendAttendance",
+							"raw": "{{url}}:{{persist-port}}/sendAttendance",
 							"host": [
 								"{{url}}"
 							],
-							"port": "8015",
+							"port": "{{persist-port}}",
 							"path": [
 								"sendAttendance"
 							]
