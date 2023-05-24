@@ -44,6 +44,13 @@ func (h *Handler) AttendanceReceiveHandler(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
+	if h.Provider.DbIsON {
+		err := PersistAtendance(h.Provider, "", 0)
+		if err != nil {
+			h.Provider.Log.Sugar().Error("error persisting received pack: ", err)
+		}
+	}
+
 	h.Provider.Log.Sugar().Infof("received info: %+v", *receivedPack)
 }
 
@@ -64,6 +71,13 @@ func (h *Handler) NewRegistryReceiveHandler(w http.ResponseWriter, r *http.Reque
 		w.WriteHeader(http.StatusBadRequest)
 
 		return
+	}
+
+	if h.Provider.DbIsON {
+		err := PersistRegistry(h.Provider)
+		if err != nil {
+			h.Provider.Log.Sugar().Error("error persisting received registry: ", err)
+		}
 	}
 
 	h.Provider.Log.Sugar().Infof("received info: %+v", *receivedRegistry)

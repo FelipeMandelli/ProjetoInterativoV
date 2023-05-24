@@ -52,6 +52,7 @@ func main() {
 
 	if viper.GetBool(config.DBEnablerKey) {
 		logger.Info("starting DB connection...")
+
 		err = services.ConnectDatabase(provider)
 		if err != nil {
 			logger.Sugar().Fatalf("error crating DataBase connection", err)

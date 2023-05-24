@@ -1,6 +1,7 @@
 package services
 
 import (
+
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 )
@@ -8,8 +9,9 @@ import (
 var provider *Provider
 
 type Provider struct {
-	Log *zap.Logger
-	DB  *gorm.DB
+	Log    *zap.Logger
+	DB     *gorm.DB
+	DbIsON bool
 }
 
 func GetProvider() *Provider {
@@ -17,7 +19,9 @@ func GetProvider() *Provider {
 		return provider
 	}
 
-	provider = &Provider{}
+	provider = &Provider{
+		DbIsON: false,
+	}
 
 	return provider
 }
