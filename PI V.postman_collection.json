@@ -270,6 +270,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "POST - Send Registry",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"SendingTime\":\"23-05-2023 21:55:49\",\r\n    \"Registry\": {\r\n        \"Name\":\"Thilove\", \r\n        \"Mail\":\"teste@123.com\",\r\n        \"Role\":\"Aluno\",\r\n        \"Course\":\"Engenharia da Computação\",\r\n        \"Tag\":\"123456789\"\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}:{{persist-port}}/new/registry",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{persist-port}}",
+							"path": [
+								"new",
+								"registry"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

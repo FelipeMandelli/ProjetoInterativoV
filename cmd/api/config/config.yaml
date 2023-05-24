@@ -1,3 +1,5 @@
 ADDRESS: "localhost:9015"
-PERSISTENCE_ADDRES: "http://127.0.0.1:8015/sendAttendance"
+PERSISTENCE_ADDRES: "http://127.0.0.1:8015"
+ATTENDANCE_PATH: "/sendAttendance"
+REGISTRY_PATH: "/new/registry"
 PERSISTENCE_RETRY: 3

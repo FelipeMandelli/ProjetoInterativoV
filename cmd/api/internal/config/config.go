@@ -7,11 +7,13 @@ import (
 )
 
 const (
-	basePath      = "config"
-	AddressKey    = "ADDRESS"
-	PesistenceKey = "PERSISTENCE_ADDRES"
-	RetryKey      = "PERSISTENCE_RETRY"
-	TimeFormater  = "02-01-2006 15:04:05"
+	basePath          = "config"
+	AddressKey        = "ADDRESS"
+	PesistenceKey     = "PERSISTENCE_ADDRES"
+	AttendancePathKey = "ATTENDANCE_PATH"
+	RegistryPathKey   = "REGISTRY_PATH"
+	RetryKey          = "PERSISTENCE_RETRY"
+	TimeFormater      = "02-01-2006 15:04:05"
 )
 
 func SetupConfigurations() error {

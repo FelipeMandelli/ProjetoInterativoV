@@ -12,6 +12,7 @@ type Provider struct {
 	Log             *zap.Logger
 	PackChan        chan dto.PackagerDTO
 	RequestBodyChan chan domain.AttendanceRequest
+	RegChan         chan dto.RegistryDTO
 }
 
 func GetProvider() *Provider {
@@ -22,6 +23,7 @@ func GetProvider() *Provider {
 	provider = &Provider{
 		PackChan:        make(chan dto.PackagerDTO),
 		RequestBodyChan: make(chan domain.AttendanceRequest),
+		RegChan:         make(chan dto.RegistryDTO),
 	}
 
 	return provider
