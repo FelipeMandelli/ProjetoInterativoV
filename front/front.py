@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter.ttk import Combobox
 import requests
+import json
 
 class FormPw:
     def __init__(self, title='Ficha Técnica | Supply Chain', txtWidth=32):
@@ -21,14 +22,14 @@ class FormPw:
         y = (screen_height // 2) - (winHeight // 2)
         win.geometry(f'{winWidth}x{winHeight}+{x}+{y}')
         
-        img = PhotoImage(file='icones\\bg_sanofi.png')
-        img=img.subsample(1,1)
-        imgSanofi = Label(win, image=img)
-        imgSanofi.place(relx= -0.005, rely= 0)
-        try:
-            win.iconbitmap(default='icones\\logo.ico')
-        except:
-            pass
+        # img = PhotoImage(file='icones\\bg_sanofi.png')
+        # img=img.subsample(1,1)
+        # imgSanofi = Label(win, image=img)
+        # imgSanofi.place(relx= -0.005, rely= 0)
+        # try:
+        #     win.iconbitmap(default='icones\\logo.ico')
+        # except:
+        #     pass
 
         # Definição dos Frames na win
         frame_1 = Frame(win, bd = 3, bg = 'white')
@@ -67,7 +68,7 @@ class FormPw:
 
         lblCurso = Label(frame_2, text='Curso:', bg= 'white', anchor=W, fg=corFonte, font=fontePadrao)
         lblCurso.place(relx = 0.05, rely=0.66, relwidth= 0.2, relheight= 0.10)
-        txtCurso = Combobox(frame_2, values=['Engenharia de Computação', 'Engenharia de Produção'])
+        txtCurso = Combobox(frame_2, values=['Engenharia da Computação', 'Engenharia de Produção'])
         txtCurso.place(relx = 0.23, rely=0.66, relwidth= 0.72, relheight= 0.10)
         txtCurso.bind('<Key>', lambda e: 'break') 
 
@@ -83,15 +84,15 @@ class FormPw:
         self.__cartao = txtCartao.get()
 
         # Fazer a chamada HTTP para a API
-        api_url = "http//localhost:9015/new/registration"  # Substitua pelo URL da sua API
+        api_url = "http://localhost:9015/new/registry"  # Substitua pelo URL da sua API
         data = {
-            "user_name": self.__userName,
-            "user_email": self.__userEmail,
-            "curso": self.__curso,
-            "perfil": self.get_selected_option(),
-            "Cartão:": self.__cartao
+            "Name": self.__userName,
+            "Mail": self.__userEmail,
+            "Role": self.get_selected_option(),
+            "Course": self.__curso,
+            "Tag": self.__cartao
         }
-        response = requests.post(api_url, data=data)
+        response = requests.post(api_url, data=json.dumps(data))
 
         if response.status_code == 200:
             print("Chamada HTTP bem-sucedida")
