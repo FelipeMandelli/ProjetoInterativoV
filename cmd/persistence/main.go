@@ -55,7 +55,7 @@ func main() {
 
 		err = services.ConnectDatabase(provider)
 		if err != nil {
-			logger.Sugar().Fatalf("error crating DataBase connection", err)
+			logger.Sugar().Fatalf("error crating DataBase connection ", err.Error())
 		}
 	}
 
