@@ -57,6 +57,7 @@ func main() {
 		if err != nil {
 			logger.Sugar().Fatalf("error crating DataBase connection ", err.Error())
 		}
+		logger.Sugar().Infof("DB connected! %+v", provider.DB)
 	}
 
 	errorGroup, ctx := errgroup.WithContext(ctx)

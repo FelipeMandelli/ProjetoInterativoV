@@ -1,11 +1,13 @@
 package entitys
 
 type Resgistry struct {
-	Name   string
-	Mail   string
-	Role   Role
-	Course Course
-	Tag    string
+	Name     string
+	Mail     string
+	Role     Role
+	Course   Course
+	Tag      int
+	Document string
+	Tel      string
 }
 
 type Role string
