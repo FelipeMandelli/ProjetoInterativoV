@@ -6,5 +6,5 @@ type Student struct {
 	Document  string
 	Mail      string
 	Cellphone string
-	Course    int
+	Course    string
 }

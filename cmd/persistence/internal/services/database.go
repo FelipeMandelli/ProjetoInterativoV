@@ -20,7 +20,7 @@ const (
 
 func ConnectDatabase(provider *Provider) error {
 
-	connString := fmt.Sprintf("HOSTNAME=%s;DATABASE=%s;PORT=%sUID=%s;PWD=%s;security=ssl;",
+	connString := fmt.Sprintf("HOSTNAME=%s;DATABASE=%s;PORT=%s;UID=%s;PWD=%s;security=ssl;",
 		viper.GetString(config.DBHostKey),
 		viper.GetString(config.DBNameKey),
 		viper.GetString(config.DBPortKey),
@@ -31,7 +31,7 @@ func ConnectDatabase(provider *Provider) error {
 	if err != nil {
 		return err
 	}
-	defer db.Close()
+	//defer db.Close()
 
 	provider.DB = db
 	provider.DbIsON = true
@@ -40,7 +40,7 @@ func ConnectDatabase(provider *Provider) error {
 }
 
 func PersistAtendance(p *Provider, teacherTag, studentTag int) error {
-	_, err := p.DB.Exec(newStudentProcedure, teacherTag, studentTag)
+	_, err := p.DB.Exec(newAttendanceProcedure, teacherTag, studentTag)
 	if err != nil {
 		return fmt.Errorf("error executing procedure: %w", err)
 	}
