@@ -14,83 +14,97 @@ class FormPw:
         win.title('CHAMADA AUTOMÁTICA | PI V')
         
         win.resizable(False, False)
-        winHeight = 300
-        winWidth = 450
+        winHeight = 350
+        winWidth = 480
         screen_width = win.winfo_screenwidth()
         screen_height = win.winfo_screenheight()
         x = (screen_width // 2) - (winWidth // 2)
         y = (screen_height // 2) - (winHeight // 2)
         win.geometry(f'{winWidth}x{winHeight}+{x}+{y}')
         
-        # img = PhotoImage(file='icones\\bg_sanofi.png')
-        # img=img.subsample(1,1)
-        # imgSanofi = Label(win, image=img)
-        # imgSanofi.place(relx= -0.005, rely= 0)
-        # try:
-        #     win.iconbitmap(default='icones\\logo.ico')
-        # except:
-        #     pass
+        img = PhotoImage(file='icones\\bg_sanofi.png')
+        img=img.subsample(1,1)
+        imgSanofi = Label(win, image=img)
+        imgSanofi.place(relx= -0.005, rely= 0)
+        try:
+            win.iconbitmap(default='icones\\logo.ico')
+        except:
+            pass
 
         # Definição dos Frames na win
         frame_1 = Frame(win, bd = 3, bg = 'white')
-        frame_1.place(relx = 0.37, rely=0, relwidth= 0.63, relheight= 0.14)
+        frame_1.place(relx = 0.3468, rely=0, relwidth= 0.6531, relheight= 0.14)
         frame_2 = Frame(win, bd = 3, bg = 'white')
-        frame_2.place(relx = 0.37, rely=0.14, relwidth= 0.63, relheight= 0.86)
+        frame_2.place(relx = 0.3468, rely=0.14, relwidth= 0.6531, relheight= 0.86)
 
         lblTitle = Label(frame_1, text='\nCadastro de Novo Usuário\n', bg= 'white', font= fontePadrao2)
-        lblTitle.place(relx = 0, rely=0.05, relwidth= 1, relheight= 1)
+        lblTitle.place(relx = 0, rely=0.02, relwidth= 1, relheight= 1)
 
         lbluserName = Label(frame_2, text=('Nome:'), bg= 'white', anchor=W, fg=corFonte, font=fontePadrao)
-        lbluserName.place(relx = 0.05, rely=0.03, relwidth= 0.2, relheight= 0.10)
+        lbluserName.place(relx = 0.02, rely=0.03, relwidth= 0.2, relheight= 0.08)
         txtuserName = Entry(frame_2, width=txtWidth)
-        txtuserName.place(relx = 0.23, rely=0.03, relwidth= 0.72, relheight= 0.10)
+        txtuserName.place(relx = 0.26, rely=0.03, relwidth=0.7, relheight= 0.08)
 
         lbluserEmail = Label(frame_2, text='E-mail:', bg= 'white', anchor=W, fg=corFonte, font=fontePadrao)
-        lbluserEmail.place(relx = 0.05, rely=0.19, relwidth= 0.2, relheight= 0.10)
+        lbluserEmail.place(relx = 0.02, rely=0.14, relwidth= 0.2, relheight= 0.08)
         txtuserEmail = Entry(frame_2, width=txtWidth)
-        txtuserEmail.place(relx = 0.23, rely=0.19, relwidth= 0.72, relheight= 0.10) 
+        txtuserEmail.place(relx = 0.26, rely=0.14, relwidth=0.7, relheight= 0.08) 
 
         self.selected_option = StringVar(value="")
         style = ttk.Style()
         style.configure("White.TCheckbutton", background="white", foreground=corFonte, font=fontePadrao)
 
         lblPerfil = Label(frame_2, text='Perfil:', bg= 'white', anchor=W, fg=corFonte, font=fontePadrao)
-        lblPerfil.place(relx = 0.05, rely=0.34, relwidth= 0.20, relheight= 0.10)
+        lblPerfil.place(relx = 0.02, rely=0.26, relwidth= 0.20, relheight= 0.08)
         checkOpcao1 = ttk.Checkbutton(frame_2, text="Professor", variable=self.selected_option, onvalue="Professor", style="White.TCheckbutton")
-        checkOpcao1.place(relx=0.22, rely=0.34, relwidth=0.29, relheight=0.10)
+        checkOpcao1.place(relx=0.25, rely=0.25, relwidth=0.29, relheight=0.08)
         checkOpcao2 = ttk.Checkbutton(frame_2, text="Aluno", variable=self.selected_option, onvalue="Aluno", style="White.TCheckbutton")
-        checkOpcao2.place(relx=0.53, rely=0.34, relwidth=0.2, relheight=0.10)
+        checkOpcao2.place(relx=0.56, rely=0.25, relwidth=0.2, relheight=0.08)
 
         lblCartao = Label(frame_2, text='Cartão:', bg= 'white', anchor=W, fg=corFonte, font=fontePadrao)
-        lblCartao.place(relx = 0.05, rely=0.49, relwidth= 0.20, relheight= 0.10)
+        lblCartao.place(relx = 0.02, rely=0.36, relwidth= 0.20, relheight= 0.08)
         txtCartao = Entry(frame_2, width=txtWidth)
-        txtCartao.place(relx = 0.23, rely=0.49, relwidth= 0.72, relheight= 0.10)
+        txtCartao.place(relx = 0.26, rely=0.36, relwidth=0.7, relheight= 0.08)
 
         lblCurso = Label(frame_2, text='Curso:', bg= 'white', anchor=W, fg=corFonte, font=fontePadrao)
-        lblCurso.place(relx = 0.05, rely=0.66, relwidth= 0.2, relheight= 0.10)
+        lblCurso.place(relx = 0.02, rely=0.48, relwidth= 0.2, relheight= 0.08)
         txtCurso = Combobox(frame_2, values=['Engenharia da Computação', 'Engenharia de Produção'])
-        txtCurso.place(relx = 0.23, rely=0.66, relwidth= 0.72, relheight= 0.10)
-        txtCurso.bind('<Key>', lambda e: 'break') 
+        txtCurso.place(relx = 0.26, rely=0.48, relwidth=0.7, relheight= 0.08)
+        txtCurso.bind('<Key>', lambda e: 'break')
 
-        btnOk = Button(frame_2, text = ('CADASTRAR'), bg= '#7404e3', bd=1, fg='white', font= fontePadrao1, command=lambda: self.btnOk_click(win, txtuserName, txtuserEmail, txtCurso, txtCartao))
-        btnOk.place(relx = 0.05, rely=0.8, relwidth= 0.9, relheight= 0.17)
+        lblDocument = Label(frame_2, text='Documento:', bg= 'white', anchor=W, fg=corFonte, font=fontePadrao)
+        lblDocument.place(relx = 0.02, rely=0.6, relwidth= 0.24, relheight= 0.08)
+        txtDocument = Entry(frame_2, width=txtWidth)
+        txtDocument.place(relx = 0.26, rely=0.6, relwidth=0.7, relheight= 0.08)
+
+        lblTel = Label(frame_2, text='Telefone:', bg= 'white', anchor=W, fg=corFonte, font=fontePadrao)
+        lblTel.place(relx = 0.02, rely=0.72, relwidth= 0.2, relheight= 0.08)
+        txtTel = Entry(frame_2, width=txtWidth)
+        txtTel.place(relx = 0.26, rely=0.72, relwidth=0.7, relheight= 0.08)
+
+        btnOk = Button(frame_2, text = ('CADASTRAR'), bg= '#7404e3', bd=1, fg='white', font= fontePadrao1, command=lambda: self.btnOk_click(win, txtuserName, txtuserEmail, txtCurso, txtCartao, txtDocument, txtTel))
+        btnOk.place(relx = 0.02, rely=0.84, relwidth= 0.95, relheight= 0.14)
 
         win.mainloop()
 
-    def btnOk_click(self, win, txtuserName, txtuserEmail, txtCurso, txtCartao):
+    def btnOk_click(self, win, txtuserName, txtuserEmail, txtCurso, txtCartao, txtDocument, txtTel):
         self.__userName = txtuserName.get()
         self.__userEmail = txtuserEmail.get()
         self.__curso = txtCurso.get()
         self.__cartao = txtCartao.get()
+        self.__doc = txtDocument.get()
+        self.__tel = txtTel.get()
 
-        # Fazer a chamada HTTP para a API
+        # # Fazer a chamada HTTP para a API
         api_url = "http://localhost:9015/new/registry"  # Substitua pelo URL da sua API
         data = {
             "Name": self.__userName,
             "Mail": self.__userEmail,
             "Role": self.get_selected_option(),
             "Course": self.__curso,
-            "Tag": self.__cartao
+            "Tag": self.__cartao,
+            "Document": self.__doc,
+            "Tel": self.__tel
         }
         response = requests.post(api_url, data=json.dumps(data))
 
@@ -128,6 +142,16 @@ class FormPw:
     def cartao(self):
         try: return self.__cartao
         except: pass
+    
+    @property
+    def doc(self):
+        try: return self.__doc
+        except: pass
+
+    @property
+    def tel(self):
+        try: return self.__tel
+        except: pass
 
 if __name__ == "__main__":
     form = FormPw()
@@ -136,8 +160,12 @@ if __name__ == "__main__":
     Curso = form.curso
     Cartao = form.cartao
     Perfil = form.get_selected_option()
+    Documento = form.doc
+    Telefone = form.tel
     print("Nome: {}" .format(user_Name))
     print("E-mail: {}" .format(user_Email))
     print("Perfil: {}" .format(Perfil))
     print("Cartão: {}".format(Cartao))
     print("Curso: {}".format(Curso))
+    print("Documento: {}".format(Documento))
+    print("Tel: {}".format(Telefone))
