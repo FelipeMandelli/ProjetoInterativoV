@@ -5,7 +5,7 @@ type Resgistry struct {
 	Mail     string
 	Role     Role
 	Course   Course
-	Tag      int
+	Tag      string
 	Document string
 	Tel      string
 }

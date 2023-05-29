@@ -58,7 +58,7 @@ func (h *Handler) AttendanceReceiveHandler(w http.ResponseWriter, r *http.Reques
 }
 
 func (h *Handler) NewRegistryReceiveHandler(w http.ResponseWriter, r *http.Request) {
-	h.Provider.Log.Debug("Received Attendance request!")
+	h.Provider.Log.Debug("Received Registry request!")
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		h.Provider.Log.Sugar().Errorf("error reading request body: %s", err.Error())

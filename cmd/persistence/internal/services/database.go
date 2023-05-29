@@ -39,7 +39,7 @@ func ConnectDatabase(provider *Provider) error {
 	return nil
 }
 
-func PersistAtendance(p *Provider, teacherTag, studentTag int) error {
+func PersistAtendance(p *Provider, teacherTag, studentTag string) error {
 	_, err := p.DB.Exec(newAttendanceProcedure, teacherTag, studentTag)
 	if err != nil {
 		return fmt.Errorf("error executing procedure: %w", err)

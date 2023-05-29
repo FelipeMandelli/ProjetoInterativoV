@@ -60,7 +60,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tag\":123\r\n}"
+							"raw": "{\r\n    \"tag\":\"123456789\"\r\n}"
 						},
 						"url": {
 							"raw": "{{url}}:{{api-port}}/attendance",
@@ -88,7 +88,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Name\":\"Thilove\",\r\n    \"Mail\":\"teste@123.com\",\r\n    \"Role\":\"Aluno\",\r\n    \"Course\":\"Engenharia da Computação\",\r\n    \"Tag\": 123456789,\r\n    \"Document\": \"123.321.123-19\",\r\n    \"Tel\":\"(11)23214563\"\r\n}"
+							"raw": "{\r\n    \"Name\":\"Thilove\",\r\n    \"Mail\":\"teste@123.com\",\r\n    \"Role\":\"Aluno\",\r\n    \"Course\":\"Engenharia da Computação\",\r\n    \"Tag\": \"123456789\",\r\n    \"Document\": \"123.321.123-19\",\r\n    \"Tel\":\"(11)23214563\"\r\n}"
 						},
 						"url": {
 							"raw": "{{url}}:{{api-port}}/new/registry",
@@ -117,7 +117,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Name\":\"Murillo\",\r\n    \"Mail\":\"123@senac.com\",\r\n    \"Role\":\"Aluno\",\r\n    \"Course\":\"Engenharia de Produção\" ,\r\n    \"Tag\": 987654321,\r\n    \"Document\": \"123.321.123-19\",\r\n    \"Tel\":\"(11)23214563\"\r\n}"
+							"raw": "{\r\n    \"Name\":\"Murillo\",\r\n    \"Mail\":\"123@senac.com\",\r\n    \"Role\":\"Aluno\",\r\n    \"Course\":\"Engenharia de Produção\" ,\r\n    \"Tag\": \"987654321\",\r\n    \"Document\": \"123.321.123-19\",\r\n    \"Tel\":\"(11)23214563\"\r\n}"
 						},
 						"url": {
 							"raw": "{{url}}:{{api-port}}/new/registry",
@@ -146,7 +146,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Name\":\"Thilove\",\r\n    \"Mail\":\"teste@123.com\",\r\n    \"Role\":\"aluno\",\r\n    \"Course\":\"Administracao\",\r\n    \"Tag\": 147258369,\r\n    \"Document\": \"123.321.123-19\",\r\n    \"Tel\":\"(11)23214563\"\r\n}"
+							"raw": "{\r\n    \"Name\":\"Thilove\",\r\n    \"Mail\":\"teste@123.com\",\r\n    \"Role\":\"aluno\",\r\n    \"Course\":\"Administracao\",\r\n    \"Tag\": \"147258369\",\r\n    \"Document\": \"123.321.123-19\",\r\n    \"Tel\":\"(11)23214563\"\r\n}"
 						},
 						"url": {
 							"raw": "{{url}}:{{api-port}}/new/registry",
@@ -175,7 +175,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Name\":\"Greg\",\r\n    \"Mail\":\"teste@teste.com\",\r\n    \"Role\":\"Professor\",\r\n    \"Course\":\"\" ,\r\n    \"Tag\": 369258147,\r\n    \"Document\": \"123.321.123-19\",\r\n    \"Tel\":\"(11)23214563\"\r\n}"
+							"raw": "{\r\n    \"Name\":\"Greg\",\r\n    \"Mail\":\"teste@teste.com\",\r\n    \"Role\":\"Professor\",\r\n    \"Course\":\"\" ,\r\n    \"Tag\": \"369258147\",\r\n    \"Document\": \"123.321.123-19\",\r\n    \"Tel\":\"(11)23214563\"\r\n}"
 						},
 						"url": {
 							"raw": "{{url}}:{{api-port}}/new/registry",
@@ -204,7 +204,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Name\":\"Guilherme\",\r\n    \"Mail\":\"teste@123.com\",\r\n    \"Role\":\"Professor\",\r\n    \"Course\":\"Administracao\" ,\r\n    \"Tag\": 321654987,\r\n    \"Document\": \"123.321.123-19\",\r\n    \"Tel\":\"(11)23214563\"\r\n}"
+							"raw": "{\r\n    \"Name\":\"Guilherme\",\r\n    \"Mail\":\"teste@123.com\",\r\n    \"Role\":\"Professor\",\r\n    \"Course\":\"Administracao\" ,\r\n    \"Tag\": \"321654987\",\r\n    \"Document\": \"123.321.123-19\",\r\n    \"Tel\":\"(11)23214563\"\r\n}"
 						},
 						"url": {
 							"raw": "{{url}}:{{api-port}}/new/registry",
