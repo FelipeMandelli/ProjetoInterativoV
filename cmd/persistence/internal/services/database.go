@@ -1,37 +1,41 @@
 package services
 
 import (
-	"database/sql"
 	"fmt"
 
 	"github.com/FelipeMandelli/ProjetoInterativoV/cmd/persistence/internal/config"
-	entitys "github.com/FelipeMandelli/ProjetoInterativoV/pkg/Entitys"
-	_ "github.com/ibmdb/go_ibm_db"
 	"github.com/spf13/viper"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
-const (
-	newStudentProcedure    = "CALL insertStudent(?, ?, ?, ?, ?, ?)"
-	newTeacherProcedure    = "CALL insertTeacher(?, ?)"
-	newAttendanceProcedure = "CALL insertPresence(?, ?)"
-)
+// const (
+// 	newStudentProcedure    = "CALL insertStudent(?, ?, ?, ?, ?, ?)"
+// 	newTeacherProcedure    = "CALL insertTeacher(?, ?)"
+// 	newAttendanceProcedure = "CALL insertPresence(?, ?)"
+// )
 
-// DATABASE=dbname;HOSTNAME=hostname;PORT=port;PROTOCOL=TCPIP;UID=username;PWD=passwd
+type Test struct {
+	ID string `gorm:"coolumn:id"`
+}
 
 func ConnectDatabase(provider *Provider) error {
 
-	connString := fmt.Sprintf("HOSTNAME=%s;DATABASE=%s;PORT=%s;UID=%s;PWD=%s;security=ssl;",
+	db, err := gorm.Open(mysql.Open(createDBConnString(
+		viper.GetInt(config.DBPortKey),
 		viper.GetString(config.DBHostKey),
-		viper.GetString(config.DBNameKey),
-		viper.GetString(config.DBPortKey),
 		viper.GetString(config.DBUserKey),
-		viper.GetString(config.DBPassKey))
-
-	db, err := sql.Open("go_ibm_db", connString)
+		viper.GetString(config.DBPassKey),
+		viper.GetString(config.DBNameKey),
+	)), &gorm.Config{})
 	if err != nil {
 		return err
 	}
-	//defer db.Close()
+
+	err = db.AutoMigrate(&Test{})
+	if err != nil {
+		return err
+	}
 
 	provider.DB = db
 	provider.DbIsON = true
@@ -39,29 +43,33 @@ func ConnectDatabase(provider *Provider) error {
 	return nil
 }
 
-func PersistAtendance(p *Provider, teacherTag, studentTag string) error {
-	_, err := p.DB.Exec(newAttendanceProcedure, teacherTag, studentTag)
-	if err != nil {
-		return fmt.Errorf("error executing procedure: %w", err)
-	}
+// func PersistAtendance(p *Provider, teacherTag, studentTag string) error {
+// 	_, err := p.DB.Exec(newAttendanceProcedure, teacherTag, studentTag)
+// 	if err != nil {
+// 		return fmt.Errorf("error executing procedure: %w", err)
+// 	}
 
-	return nil
-}
+// 	return nil
+// }
 
-func PersistStudentRegistry(p *Provider, student entitys.Resgistry) error {
-	_, err := p.DB.Exec(newStudentProcedure, student.Tag, student.Name, student.Document, student.Mail, student.Tel, student.Course)
-	if err != nil {
-		return fmt.Errorf("error executing procedure: %w", err)
-	}
+// func PersistStudentRegistry(p *Provider, student entitys.Resgistry) error {
+// 	_, err := p.DB.Exec(newStudentProcedure, student.Tag, student.Name, student.Document, student.Mail, student.Tel, student.Course)
+// 	if err != nil {
+// 		return fmt.Errorf("error executing procedure: %w", err)
+// 	}
 
-	return nil
-}
+// 	return nil
+// }
 
-func PersistTeacherRegistry(p *Provider, teacher entitys.Resgistry) error {
-	_, err := p.DB.Exec(newTeacherProcedure, teacher.Tag, teacher.Name)
-	if err != nil {
-		return fmt.Errorf("error executing procedure: %w", err)
-	}
+// func PersistTeacherRegistry(p *Provider, teacher entitys.Resgistry) error {
+// 	_, err := p.DB.Exec(newTeacherProcedure, teacher.Tag, teacher.Name)
+// 	if err != nil {
+// 		return fmt.Errorf("error executing procedure: %w", err)
+// 	}
 
-	return nil
+// 	return nil
+// }
+
+func createDBConnString(port int, host, username, password, name string) string {
+	return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true", username, password, host, port, name)
 }

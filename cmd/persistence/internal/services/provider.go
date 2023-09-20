@@ -1,16 +1,15 @@
 package services
 
 import (
-	"database/sql"
-
 	"go.uber.org/zap"
+	"gorm.io/gorm"
 )
 
 var provider *Provider
 
 type Provider struct {
 	Log    *zap.Logger
-	DB     *sql.DB
+	DB     *gorm.DB
 	DbIsON bool
 }
 

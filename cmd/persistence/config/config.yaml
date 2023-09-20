@@ -1,7 +1,7 @@
-ADDRESS: "localhost:8015"
-DB_USER: "rqx78693"
-DB_PASS: "1CY68qga6Ses37LI"
-DB_HOST: "98538591-7217-4024-b027-8baa776ffad1.c3n41cmd0nqnrk39u98g.databases.appdomain.cloud"
-DB_PORT: "30875"
-DB_NAME: "bludb"
+ADDRESS: "0.0.0.0:8015"
+DB_USER: "admin"
+DB_PASS: "devSenac"
+DB_HOST: "databasepi.cfdtgzme8xon.sa-east-1.rds.amazonaws.com"
+DB_PORT: "3306"
+DB_NAME: "teste"
 ENABLE_DB: true

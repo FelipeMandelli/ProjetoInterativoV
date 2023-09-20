@@ -2,6 +2,7 @@ package services
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 
@@ -47,10 +48,11 @@ func (h *Handler) AttendanceReceiveHandler(w http.ResponseWriter, r *http.Reques
 
 	if h.Provider.DbIsON {
 		for _, studentTag := range receivedPack.AttendanceIDs {
-			err := PersistAtendance(h.Provider, receivedPack.TeacherID, studentTag)
-			if err != nil {
-				h.Provider.Log.Sugar().Error("error persisting received pack: ", err)
-			}
+			fmt.Println(studentTag)
+			// err := PersistAtendance(h.Provider, receivedPack.TeacherID, studentTag)
+			// if err != nil {
+			// 	h.Provider.Log.Sugar().Error("error persisting received pack: ", err)
+			// }
 		}
 	}
 
@@ -78,17 +80,17 @@ func (h *Handler) NewRegistryReceiveHandler(w http.ResponseWriter, r *http.Reque
 
 	if h.Provider.DbIsON {
 		if receivedRegistry.Registry.Role == entitys.StudentRole {
-			err := PersistStudentRegistry(h.Provider, receivedRegistry.Registry)
-			if err != nil {
-				h.Provider.Log.Sugar().Error("error persisting received student registry: ", err)
-			}
+			// err := PersistStudentRegistry(h.Provider, receivedRegistry.Registry)
+			// if err != nil {
+			// 	h.Provider.Log.Sugar().Error("error persisting received student registry: ", err)
+			// }
 		}
 
 		if receivedRegistry.Registry.Role == entitys.TeacherRole {
-			err := PersistTeacherRegistry(h.Provider, receivedRegistry.Registry)
-			if err != nil {
-				h.Provider.Log.Sugar().Error("error persisting received teacher registry: ", err)
-			}
+			// err := PersistTeacherRegistry(h.Provider, receivedRegistry.Registry)
+			// if err != nil {
+			// 	h.Provider.Log.Sugar().Error("error persisting received teacher registry: ", err)
+			// }
 		}
 	}
 
