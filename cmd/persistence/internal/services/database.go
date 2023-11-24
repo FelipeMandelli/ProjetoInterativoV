@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/FelipeMandelli/ProjetoInterativoV/cmd/persistence/internal/config"
+	entities "github.com/FelipeMandelli/ProjetoInterativoV/pkg/Entities"
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -14,10 +15,6 @@ import (
 // 	newTeacherProcedure    = "CALL insertTeacher(?, ?)"
 // 	newAttendanceProcedure = "CALL insertPresence(?, ?)"
 // )
-
-type Test struct {
-	ID string `gorm:"coolumn:id"`
-}
 
 func ConnectDatabase(provider *Provider) error {
 
@@ -32,7 +29,12 @@ func ConnectDatabase(provider *Provider) error {
 		return err
 	}
 
-	err = db.AutoMigrate(&Test{})
+	err = db.AutoMigrate(
+		&entities.Attendance{},
+		&entities.Professor{},
+		&entities.Student{},
+		&entities.Subject{},
+	)
 	if err != nil {
 		return err
 	}

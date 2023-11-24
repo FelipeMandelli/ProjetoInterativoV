@@ -7,7 +7,6 @@ import (
 	"net/http"
 
 	dto "github.com/FelipeMandelli/ProjetoInterativoV/pkg/DTO"
-	entitys "github.com/FelipeMandelli/ProjetoInterativoV/pkg/Entitys"
 )
 
 type Handler struct {
@@ -78,21 +77,21 @@ func (h *Handler) NewRegistryReceiveHandler(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	if h.Provider.DbIsON {
-		if receivedRegistry.Registry.Role == entitys.StudentRole {
-			// err := PersistStudentRegistry(h.Provider, receivedRegistry.Registry)
-			// if err != nil {
-			// 	h.Provider.Log.Sugar().Error("error persisting received student registry: ", err)
-			// }
-		}
+	// if h.Provider.DbIsON {
+	// 	if receivedRegistry.Registry.Role == entitys.StudentRole {
+	// 		// err := PersistStudentRegistry(h.Provider, receivedRegistry.Registry)
+	// 		// if err != nil {
+	// 		// 	h.Provider.Log.Sugar().Error("error persisting received student registry: ", err)
+	// 		// }
+	// 	}
 
-		if receivedRegistry.Registry.Role == entitys.TeacherRole {
-			// err := PersistTeacherRegistry(h.Provider, receivedRegistry.Registry)
-			// if err != nil {
-			// 	h.Provider.Log.Sugar().Error("error persisting received teacher registry: ", err)
-			// }
-		}
-	}
+	// 	if receivedRegistry.Registry.Role == entitys.TeacherRole {
+	// 		// err := PersistTeacherRegistry(h.Provider, receivedRegistry.Registry)
+	// 		// if err != nil {
+	// 		// 	h.Provider.Log.Sugar().Error("error persisting received teacher registry: ", err)
+	// 		// }
+	// 	}
+	// }
 
 	h.Provider.Log.Sugar().Infof("received info: %+v", *receivedRegistry)
 }
