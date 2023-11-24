@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/FelipeMandelli/ProjetoInterativoV/cmd/persistence/internal/config"
-	entities "github.com/FelipeMandelli/ProjetoInterativoV/pkg/Entities"
+	entities "github.com/FelipeMandelli/ProjetoInterativoV/pkg/entities"
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
