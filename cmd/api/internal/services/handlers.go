@@ -6,8 +6,6 @@ import (
 	"net/http"
 
 	domain "github.com/FelipeMandelli/ProjetoInterativoV/cmd/api/internal/domain/rest"
-	dto "github.com/FelipeMandelli/ProjetoInterativoV/pkg/DTO"
-	entitys "github.com/FelipeMandelli/ProjetoInterativoV/pkg/Entitys"
 )
 
 type Handler struct {
@@ -52,47 +50,47 @@ func (h *Handler) HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(resp)
 }
 
-func (h *Handler) NewRegistryHandler(w http.ResponseWriter, r *http.Request) {
-	h.Provider.Log.Debug("Received New Registry request!")
-	body, err := io.ReadAll(r.Body)
-	if err != nil {
-		h.Provider.Log.Sugar().Error("error reading request body", err)
-		w.WriteHeader(http.StatusInternalServerError)
+// func (h *Handler) NewRegistryHandler(w http.ResponseWriter, r *http.Request) {
+// 	h.Provider.Log.Debug("Received New Registry request!")
+// 	body, err := io.ReadAll(r.Body)
+// 	if err != nil {
+// 		h.Provider.Log.Sugar().Error("error reading request body", err)
+// 		w.WriteHeader(http.StatusInternalServerError)
 
-		return
-	}
+// 		return
+// 	}
 
-	receivedBody := new(entitys.Resgistry)
+// 	receivedBody := new(entitys.Resgistry)
 
-	if err := json.Unmarshal(body, &receivedBody); err != nil {
-		h.Provider.Log.Sugar().Error("error unmarshalling request body", err)
-		w.WriteHeader(http.StatusBadRequest)
+// 	if err := json.Unmarshal(body, &receivedBody); err != nil {
+// 		h.Provider.Log.Sugar().Error("error unmarshalling request body", err)
+// 		w.WriteHeader(http.StatusBadRequest)
 
-		return
-	}
+// 		return
+// 	}
 
-	if !receivedBody.IsValidRole() {
-		h.Provider.Log.Sugar().Warnf("invalid received [role] for registration: %+v", receivedBody.Role)
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
+// 	if !receivedBody.IsValidRole() {
+// 		h.Provider.Log.Sugar().Warnf("invalid received [role] for registration: %+v", receivedBody.Role)
+// 		w.WriteHeader(http.StatusBadRequest)
+// 		return
+// 	}
 
-	switch receivedBody.Role {
-	case entitys.StudentRole:
-		if !receivedBody.IsValidCourse() {
-			h.Provider.Log.Sugar().Warnf("invalid received [course] for registration: %+v", receivedBody.Course)
-			w.WriteHeader(http.StatusBadRequest)
-			return
-		}
-	case entitys.TeacherRole:
-		receivedBody.Course = ""
-	}
+// 	switch receivedBody.Role {
+// 	case entitys.StudentRole:
+// 		if !receivedBody.IsValidCourse() {
+// 			h.Provider.Log.Sugar().Warnf("invalid received [course] for registration: %+v", receivedBody.Course)
+// 			w.WriteHeader(http.StatusBadRequest)
+// 			return
+// 		}
+// 	case entitys.TeacherRole:
+// 		receivedBody.Course = ""
+// 	}
 
-	dto := dto.RegistryDTO{
-		Registry: *receivedBody,
-	}
+// 	dto := dto.RegistryDTO{
+// 		Registry: *receivedBody,
+// 	}
 
-	h.Provider.RegChan <- dto
+// 	h.Provider.RegChan <- dto
 
-	h.Provider.Log.Sugar().Infof("received info: %+v", *receivedBody)
-}
+// 	h.Provider.Log.Sugar().Infof("received info: %+v", *receivedBody)
+// }

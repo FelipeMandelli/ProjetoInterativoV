@@ -3,5 +3,5 @@ DB_USER: ""
 DB_PASS: ""
 DB_HOST: "database-pi.cfdtgzme8xon.sa-east-1.rds.amazonaws.com"
 DB_PORT: "3306"
-DB_NAME: "teste"
+DB_NAME: "attendance_control"
 ENABLE_DB: true

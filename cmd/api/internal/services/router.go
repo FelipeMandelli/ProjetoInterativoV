@@ -31,7 +31,7 @@ func CreateRouter(provider *Provider) http.Handler {
 
 	r.Get(healthPath, handler.HealthCheckHandler)
 
-	r.Post(newRegistryPath, handler.NewRegistryHandler)
+	// r.Post(newRegistryPath, handler.NewRegistryHandler)
 
 	r.Route(attendancePath, func(r chi.Router) {
 		r.Post("/", handler.AttendanceHandler)
