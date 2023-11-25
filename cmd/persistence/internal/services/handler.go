@@ -89,13 +89,43 @@ func (h *Handler) NewRegistryReceiveHandler(w http.ResponseWriter, r *http.Reque
 
 		if receivedRegistry.Registry.Role == string(entities.ProfessorRole) {
 			h.Provider.Log.Sugar().Infof("received professor registry [%+v]", receivedRegistry)
-			// err := PersistTeacherRegistry(h.Provider, receivedRegistry.Registry)
-			// if err != nil {
-			// 	h.Provider.Log.Sugar().Error("error persisting received teacher registry: ", err)
-			// }
+			err := PersistProfessorRegistry(h.Provider, receivedRegistry.Registry)
+			if err != nil {
+				h.Provider.Log.Sugar().Error("error persisting received teacher registry: ", err)
+			}
 		}
 
 	}
 
 	h.Provider.Log.Sugar().Infof("received info: %+v", *receivedRegistry)
+}
+
+func (h *Handler) NewSubjectRegistryReceiveHandler(w http.ResponseWriter, r *http.Request) {
+	h.Provider.Log.Debug("Received Subject Registry request!")
+
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		h.Provider.Log.Sugar().Errorf("error reading request body: %s", err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
+
+		return
+	}
+
+	receivedSubReg := new(dto.SubjectRegistryDTO)
+
+	if err := json.Unmarshal(body, receivedSubReg); err != nil {
+		h.Provider.Log.Sugar().Errorf("error unmarshalling received registry: %s", err.Error())
+		w.WriteHeader(http.StatusBadRequest)
+
+		return
+	}
+
+	if h.Provider.DbIsON {
+		err = PersistSubjectRegistry(h.Provider, receivedSubReg.Registry)
+		if err != nil {
+			h.Provider.Log.Sugar().Error("error persisting received subject registry: ", err)
+		}
+	}
+
+	h.Provider.Log.Sugar().Infof("received info: %+v", *receivedSubReg)
 }

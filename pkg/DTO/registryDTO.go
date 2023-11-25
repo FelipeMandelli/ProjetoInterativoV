@@ -6,3 +6,8 @@ type RegistryDTO struct {
 	SendingTime string
 	Registry    entities.Registry
 }
+
+type SubjectRegistryDTO struct {
+	SendingTime string
+	Registry    entities.SubjectRegistry
+}

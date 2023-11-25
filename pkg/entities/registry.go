@@ -11,6 +11,17 @@ type Registry struct {
 	Role            string `json:"role"`
 }
 
+type SubjectRegistry struct {
+	Name             string `json:"subject_name"`
+	Semester         int    `json:"reference_semester"`
+	Year             string `json:"reference_year"`
+	ProfessorName    string `json:"professor_name"`
+	ProfessorID      string `json:"professor_id"`
+	StudentsEnrolled string `json:"students_enrolled_ids"`
+	WeekDay          int    `json:"weekday"`
+	Schedule         int    `json:"schedule"`
+}
+
 type Role string
 type CoursesAccepted string
 
@@ -65,4 +76,17 @@ func (r *Registry) ToProfessor() (*Professor, error) {
 		Email:           r.Email,
 		CellphoneNumber: r.CellphoneNumber,
 	}, nil
+}
+
+func (r *SubjectRegistry) ToSubject() *Subject {
+	return &Subject{
+		Name:             r.Name,
+		Semester:         r.Semester,
+		Year:             r.Year,
+		ProfessorName:    r.ProfessorName,
+		ProfessorID:      r.ProfessorID,
+		StudentsEnrolled: r.StudentsEnrolled,
+		WeekDay:          r.WeekDay,
+		Schedule:         r.Schedule,
+	}
 }

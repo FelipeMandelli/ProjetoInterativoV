@@ -1,6 +1,9 @@
 package entities
 
-import "gorm.io/gorm"
+import (
+	"github.com/google/uuid"
+	"gorm.io/gorm"
+)
 
 type Subject struct {
 	gorm.Model
@@ -12,4 +15,12 @@ type Subject struct {
 	StudentsEnrolled string `gorm:"column:students_enrolled_ids"`
 	WeekDay          int    `gorm:"column:week_day"`
 	Schedule         int    `gorm:"column:schedule"`
+}
+
+func (s *Subject) BeforeCreate(tx *gorm.DB) (err error) {
+	if s.ID == 0 {
+		s.ID = uint(uuid.New().ID())
+	}
+
+	return
 }

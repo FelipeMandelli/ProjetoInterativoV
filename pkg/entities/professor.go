@@ -1,6 +1,9 @@
 package entities
 
-import "gorm.io/gorm"
+import (
+	"github.com/google/uuid"
+	"gorm.io/gorm"
+)
 
 type Professor struct {
 	gorm.Model
@@ -8,4 +11,12 @@ type Professor struct {
 	Name            string `gorm:"column:name"`
 	Email           string `gorm:"column:email"`
 	CellphoneNumber string `gorm:"column:cellphone_number"`
+}
+
+func (s *Professor) BeforeCreate(tx *gorm.DB) (err error) {
+	if s.ID == 0 {
+		s.ID = uint(uuid.New().ID())
+	}
+
+	return
 }

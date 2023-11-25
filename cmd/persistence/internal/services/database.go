@@ -63,20 +63,34 @@ func PersistStudentRegistry(p *Provider, reg entities.Registry) error {
 
 	err = database.SaveStudent(p.DB, student)
 	if err != nil {
-		return fmt.Errorf("error executing procedure: [%w]", err)
+		return fmt.Errorf("error saving professor: [%w]", err)
 	}
 
 	return nil
 }
 
-// func PersistTeacherRegistry(p *Provider, teacher entitys.Resgistry) error {
-// 	_, err := p.DB.Exec(newTeacherProcedure, teacher.Tag, teacher.Name)
-// 	if err != nil {
-// 		return fmt.Errorf("error executing procedure: %w", err)
-// 	}
+func PersistProfessorRegistry(p *Provider, reg entities.Registry) error {
+	professor, err := reg.ToProfessor()
+	if err != nil {
+		return fmt.Errorf("could not parse to student: [%w]", err)
+	}
 
-// 	return nil
-// }
+	err = database.SaveProfessor(p.DB, professor)
+	if err != nil {
+		return fmt.Errorf("error saving professor: %w", err)
+	}
+
+	return nil
+}
+
+func PersistSubjectRegistry(p *Provider, subReg entities.SubjectRegistry) error {
+	err := database.SaveSubject(p.DB, subReg.ToSubject())
+	if err != nil {
+		return fmt.Errorf("error saving subject: %w", err)
+	}
+
+	return nil
+}
 
 func createDBConnString(port int, host, username, password, name string) string {
 	return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true", username, password, host, port, name)

@@ -2,6 +2,7 @@ package services
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 
@@ -93,6 +94,51 @@ func (h *Handler) NewRegistryHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	h.Provider.RegChan <- dto
+
+	h.Provider.Log.Sugar().Infof("received info: %+v", *receivedBody)
+}
+
+func (h *Handler) NewSubjectHandler(w http.ResponseWriter, r *http.Request) {
+	h.Provider.Log.Debug("Received New Subject request!")
+
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		h.Provider.Log.Sugar().Error("error reading request body", err)
+		w.WriteHeader(http.StatusInternalServerError)
+
+		return
+	}
+
+	receivedBody := new(entities.SubjectRegistry)
+
+	if err := json.Unmarshal(body, &receivedBody); err != nil {
+		h.Provider.Log.Sugar().Error("error unmarshalling request body", err)
+		w.WriteHeader(http.StatusBadRequest)
+
+		return
+	}
+
+	if receivedBody.Name == "" ||
+		receivedBody.ProfessorID == "" ||
+		receivedBody.Schedule == 0 ||
+		receivedBody.Semester == 0 ||
+		receivedBody.StudentsEnrolled == "" ||
+		receivedBody.WeekDay == 0 ||
+		receivedBody.Year == "" ||
+		receivedBody.ProfessorName == "" {
+
+		str := fmt.Sprintf("invalid received request for registration, fill all information: %+v\ntemplate: %+v", receivedBody, entities.SubjectRegistry{})
+
+		h.Provider.Log.Sugar().Warn(str)
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(str))
+
+		return
+	}
+
+	h.Provider.SubChan <- dto.SubjectRegistryDTO{
+		Registry: *receivedBody,
+	}
 
 	h.Provider.Log.Sugar().Infof("received info: %+v", *receivedBody)
 }

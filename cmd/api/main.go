@@ -36,6 +36,7 @@ func main() {
 	go services.Packager(provider)
 	go services.PackageSender(provider)
 	go services.RegistrySender(provider)
+	go services.SubjectRegistrySender(provider)
 
 	ctx, stopCtx := context.WithCancel(context.Background())
 

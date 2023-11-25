@@ -13,6 +13,7 @@ type Provider struct {
 	PackChan        chan dto.PackagerDTO
 	RequestBodyChan chan domain.AttendanceRequest
 	RegChan         chan dto.RegistryDTO
+	SubChan         chan dto.SubjectRegistryDTO
 }
 
 func GetProvider() *Provider {
@@ -24,6 +25,7 @@ func GetProvider() *Provider {
 		PackChan:        make(chan dto.PackagerDTO),
 		RequestBodyChan: make(chan domain.AttendanceRequest),
 		RegChan:         make(chan dto.RegistryDTO),
+		SubChan:         make(chan dto.SubjectRegistryDTO),
 	}
 
 	return provider
