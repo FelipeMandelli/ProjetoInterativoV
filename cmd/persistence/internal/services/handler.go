@@ -81,10 +81,10 @@ func (h *Handler) NewRegistryReceiveHandler(w http.ResponseWriter, r *http.Reque
 	if h.Provider.DbIsON {
 		if receivedRegistry.Registry.Role == string(entities.StudentRole) {
 			h.Provider.Log.Sugar().Infof("received student registry [%+v]", receivedRegistry)
-			// err := PersistStudentRegistry(h.Provider, receivedRegistry.Registry)
-			// if err != nil {
-			// 	h.Provider.Log.Sugar().Error("error persisting received student registry: ", err)
-			// }
+			err := PersistStudentRegistry(h.Provider, receivedRegistry.Registry)
+			if err != nil {
+				h.Provider.Log.Sugar().Error("error persisting received student registry: ", err)
+			}
 		}
 
 		if receivedRegistry.Registry.Role == string(entities.ProfessorRole) {

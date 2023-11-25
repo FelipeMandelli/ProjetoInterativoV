@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/FelipeMandelli/ProjetoInterativoV/cmd/persistence/internal/config"
+	"github.com/FelipeMandelli/ProjetoInterativoV/pkg/database"
 	entities "github.com/FelipeMandelli/ProjetoInterativoV/pkg/entities"
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
@@ -54,14 +55,19 @@ func ConnectDatabase(provider *Provider) error {
 // 	return nil
 // }
 
-// func PersistStudentRegistry(p *Provider, student entitys.Resgistry) error {
-// 	_, err := p.DB.Exec(newStudentProcedure, student.Tag, student.Name, student.Document, student.Mail, student.Tel, student.Course)
-// 	if err != nil {
-// 		return fmt.Errorf("error executing procedure: %w", err)
-// 	}
+func PersistStudentRegistry(p *Provider, reg entities.Registry) error {
+	student, err := reg.ToStudent()
+	if err != nil {
+		return fmt.Errorf("could not parse to student: [%w]", err)
+	}
 
-// 	return nil
-// }
+	err = database.SaveStudent(p.DB, student)
+	if err != nil {
+		return fmt.Errorf("error executing procedure: [%w]", err)
+	}
+
+	return nil
+}
 
 // func PersistTeacherRegistry(p *Provider, teacher entitys.Resgistry) error {
 // 	_, err := p.DB.Exec(newTeacherProcedure, teacher.Tag, teacher.Name)

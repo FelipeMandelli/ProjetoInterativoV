@@ -1,5 +1,7 @@
 package entities
 
+import "errors"
+
 type Registry struct {
 	IDBiometry      string `json:"id"`
 	Name            string `json:"name"`
@@ -36,4 +38,31 @@ func (r *Registry) IsValidCourse() bool {
 	}
 
 	return true
+}
+
+func (r *Registry) ToStudent() (*Student, error) {
+	if r.Role != string(StudentRole) {
+		return nil, errors.New("cannot save a non student into student")
+	}
+
+	return &Student{
+		IDBiometry:      r.IDBiometry,
+		Name:            r.Name,
+		Email:           r.Email,
+		Course:          r.Course,
+		CellphoneNumber: r.CellphoneNumber,
+	}, nil
+}
+
+func (r *Registry) ToProfessor() (*Professor, error) {
+	if r.Role != string(ProfessorRole) {
+		return nil, errors.New("cannot save a non student into student")
+	}
+
+	return &Professor{
+		IDBiometry:      r.IDBiometry,
+		Name:            r.Name,
+		Email:           r.Email,
+		CellphoneNumber: r.CellphoneNumber,
+	}, nil
 }
