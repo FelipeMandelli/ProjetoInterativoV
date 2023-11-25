@@ -9,6 +9,7 @@ import (
 const (
 	healthPath        = "/health"
 	newRegistryPath   = "/new/registry"
+	newSubRegPath     = "/new/subject"
 	newPath           = "/new"
 	studentPath       = "/student"
 	teacherPath       = "/professor"
@@ -32,6 +33,8 @@ func CreateRouter(provider *Provider) http.Handler {
 	r.Get(healthPath, handler.HealthCheckHandler)
 
 	r.Post(newRegistryPath, handler.NewRegistryHandler)
+
+	r.Post(newSubRegPath, handler.NewSubjectHandler)
 
 	r.Route(attendancePath, func(r chi.Router) {
 		r.Post("/", handler.AttendanceHandler)
