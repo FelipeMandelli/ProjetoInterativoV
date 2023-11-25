@@ -1,6 +1,7 @@
 package services
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/FelipeMandelli/ProjetoInterativoV/cmd/persistence/internal/config"
@@ -46,14 +47,9 @@ func ConnectDatabase(provider *Provider) error {
 	return nil
 }
 
-// func PersistAtendance(p *Provider, teacherTag, studentTag string) error {
-// 	_, err := p.DB.Exec(newAttendanceProcedure, teacherTag, studentTag)
-// 	if err != nil {
-// 		return fmt.Errorf("error executing procedure: %w", err)
-// 	}
-
-// 	return nil
-// }
+func PersistAtendance(p *Provider, teacherTag string, studentTags []string) error {
+	return errors.New("not implemented")
+}
 
 func PersistStudentRegistry(p *Provider, reg entities.Registry) error {
 	student, err := reg.ToStudent()

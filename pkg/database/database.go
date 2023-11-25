@@ -42,3 +42,36 @@ func SaveAttendance(db *gorm.DB, attendance *entities.Attendance) error {
 
 	return err
 }
+
+func FindStudentByID(db *gorm.DB, id string) (*entities.Student, error) {
+	var student entities.Student
+
+	err := db.Find(&student, "id_biometry", id).Error
+	if err != nil {
+		return nil, fmt.Errorf("could not find Student by id: [%w]", err)
+	}
+
+	return &student, nil
+}
+
+func FindProfessorByID(db *gorm.DB, id string) (*entities.Professor, error) {
+	var professor entities.Professor
+
+	err := db.Find(&professor, "id_biometry", id).Error
+	if err != nil {
+		return nil, fmt.Errorf("could not find Professor by id: [%w]", err)
+	}
+
+	return &professor, nil
+}
+
+func FindSubjectByProfessorAndDayAndSchedule(db *gorm.DB, professor, day, schedule string) (*entities.Subject, error) {
+	var subject entities.Subject
+
+	err := db.Where("professor_id = ? AND week_day = ? AND schedule = ?", professor, day, schedule).Find(&subject).Error
+	if err != nil {
+		return nil, fmt.Errorf("could not find subject by given info: [%w]", err)
+	}
+
+	return &subject, nil
+}

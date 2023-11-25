@@ -7,9 +7,10 @@ import (
 
 type Attendance struct {
 	gorm.Model
-	Date           string `gorm:"column:date"`
-	Schedule       string `gorm:"column:schedule"`
+	Date           string `gorm:"primary_key;column:date"`
+	Schedule       string `gorm:"primary_key;column:schedule"`
 	SubjectID      string `gorm:"column:subject_id"`
+	ProfessorID    string `gorm:"column:professor_id"`
 	AttendanceList string `gorm:"column:attendance_list"`
 	AbsenceList    string `gorm:"column:absence_list"`
 }

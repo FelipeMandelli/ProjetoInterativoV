@@ -2,7 +2,6 @@ package services
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -47,12 +46,9 @@ func (h *Handler) AttendanceReceiveHandler(w http.ResponseWriter, r *http.Reques
 	}
 
 	if h.Provider.DbIsON {
-		for _, studentTag := range receivedPack.AttendanceIDs {
-			fmt.Println(studentTag)
-			// err := PersistAtendance(h.Provider, receivedPack.TeacherID, studentTag)
-			// if err != nil {
-			// 	h.Provider.Log.Sugar().Error("error persisting received pack: ", err)
-			// }
+		err := PersistAtendance(h.Provider, receivedPack.TeacherID, receivedPack.AttendanceIDs)
+		if err != nil {
+			h.Provider.Log.Sugar().Error("error persisting received pack: ", err)
 		}
 	}
 
