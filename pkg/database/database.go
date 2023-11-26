@@ -77,16 +77,16 @@ func FindSubjectByProfessorAndWeekdayAndSchedule(db *gorm.DB, professor, year, w
 }
 
 func FidExistentAttendace(db *gorm.DB, professorID, date, schedule string) (*entities.Attendance, bool, error) {
-	var att *entities.Attendance
+	var att entities.Attendance
 
-	result := db.Where("professor_id = ? AND schedule = ? AND date = ?", professorID, schedule, date).First(att)
+	result := db.Where("professor_id = ? AND schedule = ? AND date = ?", professorID, schedule, date).First(&att)
 
 	if result.Error != nil {
 		return nil, false, fmt.Errorf("could not check the db for existance: [%w]", result.Error)
 	}
 
 	if result.RowsAffected == 1 {
-		return att, true, nil
+		return &att, true, nil
 	}
 
 	if result.RowsAffected > 1 {
