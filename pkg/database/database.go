@@ -68,7 +68,7 @@ func FindProfessorByID(db *gorm.DB, id string) (*entities.Professor, error) {
 func FindSubjectByProfessorAndWeekdayAndSchedule(db *gorm.DB, professor, year, weekday, schedule string) (*entities.Subject, error) {
 	var subject entities.Subject
 
-	err := db.Where("professor_id = ? AND week_day = ? AND (schedule = ? OR ?) AND reference_year = ?", professor, weekday, schedule, "3", year).Find(&subject).Error
+	err := db.Where("professor_id = ? AND week_day = ? AND schedule = ? AND reference_year = ?", professor, weekday, schedule, year).Find(&subject).Error
 	if err != nil {
 		return nil, fmt.Errorf("could not find subject by given info: [%w]", err)
 	}
