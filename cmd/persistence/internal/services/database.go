@@ -66,6 +66,8 @@ func PersistAtendance(p *Provider, teacherTag string, studentTags []string, rece
 		return fmt.Errorf("could not find specified strudents: [%w]", err)
 	}
 
+	p.Log.Sugar().Infof("checking for subject using professor [%s], year [%s], weekday [%d], schedule [%d]", professor.IDBiometry, strconv.Itoa(receivedTime.Year()), getWeekDay(receivedTime), getSchedule(receivedTime))
+
 	subject, err := database.FindSubjectByProfessorAndWeekdayAndSchedule(p.DB, professor.IDBiometry, strconv.Itoa(receivedTime.Year()), getWeekDay(receivedTime), getSchedule(receivedTime))
 	if err != nil {
 		return fmt.Errorf("could not find specified subject for teacher [%s] and receivedTime [%s]: [%w]", teacherTag, receivedTime.String(), err)
