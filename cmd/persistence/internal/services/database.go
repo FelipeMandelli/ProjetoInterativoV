@@ -73,10 +73,12 @@ func PersistAtendance(p *Provider, teacherTag string, studentTags []string, rece
 		return fmt.Errorf("could not find specified subject for teacher [%s] and receivedTime [%s]: [%w]", teacherTag, receivedTime.String(), err)
 	}
 
-	att, ok, err := database.FidExistentAttendace(p.DB, professor.IDBiometry, receivedTime.Format(config.DateFormater), strconv.Itoa(getSchedule(receivedTime)))
+	att, ok, err := database.FindExistentAttendace(p.DB, professor.IDBiometry, receivedTime.Format(config.DateFormater), strconv.Itoa(getSchedule(receivedTime)))
 	if err != nil {
 		return fmt.Errorf("could not check existing attendace for teacher [%s] and receivedTime [%s]: [%w]", teacherTag, receivedTime.String(), err)
 	}
+
+	p.Log.Sugar().Debugf("\nusing professor [%+v] - subject [%+v] - students [%+v]", professor, subject, attendedStudents)
 
 	if !ok {
 		att.Date = receivedTime.Format(config.DateFormater)
