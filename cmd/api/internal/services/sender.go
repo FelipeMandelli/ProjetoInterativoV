@@ -21,7 +21,7 @@ func PackageSender(provider *Provider) {
 	for {
 		pack := <-provider.PackChan
 
-		pack.SendingTime = time.Now().Local().Format(config.TimeFormater)
+		pack.SendingTime = time.Now().In(config.SPTimeZone)
 
 		provider.Log.Sugar().Infof("package to be sent: %+v", pack)
 
@@ -38,7 +38,7 @@ func RegistrySender(provider *Provider) {
 	for {
 		registry := <-provider.RegChan
 
-		registry.SendingTime = time.Now().Local().Format(config.TimeFormater)
+		registry.SendingTime = time.Now().In(config.SPTimeZone)
 
 		provider.Log.Sugar().Infof("registry to be sent: %+v", registry)
 
@@ -55,7 +55,7 @@ func SubjectRegistrySender(provider *Provider) {
 	for {
 		subReg := <-provider.SubChan
 
-		subReg.SendingTime = time.Now().Local().Format(config.TimeFormater)
+		subReg.SendingTime = time.Now().In(config.SPTimeZone)
 
 		provider.Log.Sugar().Infof("registry to be sent: %+v", subReg)
 

@@ -1,6 +1,7 @@
 package database
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/FelipeMandelli/ProjetoInterativoV/pkg/entities"
@@ -65,13 +66,33 @@ func FindProfessorByID(db *gorm.DB, id string) (*entities.Professor, error) {
 	return &professor, nil
 }
 
-func FindSubjectByProfessorAndDayAndSchedule(db *gorm.DB, professor, day, schedule string) (*entities.Subject, error) {
+func FindSubjectByProfessorAndWeekdayAndSchedule(db *gorm.DB, professor, year string, weekday, schedule int) (*entities.Subject, error) {
 	var subject entities.Subject
 
-	err := db.Where("professor_id = ? AND week_day = ? AND schedule = ?", professor, day, schedule).Find(&subject).Error
+	err := db.Where("professor_id = ? AND week_day = ? AND schedule = ? OR 3 AND reference_year = ?", professor, weekday, schedule, year).Find(&subject).Error
 	if err != nil {
 		return nil, fmt.Errorf("could not find subject by given info: [%w]", err)
 	}
 
 	return &subject, nil
+}
+
+func FidExistentAttendace(db *gorm.DB, professorID, date, schedule string) (*entities.Attendance, bool, error) {
+	var att *entities.Attendance
+
+	result := db.Where("professor_id = ? AND schedule = ? AND date = ?", professorID, schedule, date).First(att)
+
+	if result.Error != nil {
+		return nil, false, fmt.Errorf("could not check the bank for existance")
+	}
+
+	if result.RowsAffected == 1 {
+		return att, true, nil
+	}
+
+	if result.RowsAffected > 1 {
+		return nil, true, errors.New(fmt.Sprintf("founded more than one attendace for teacher [%s] date [%s] and schedule [%s]. Will not process", professorID, date, schedule))
+	}
+
+	return &entities.Attendance{}, false, nil
 }

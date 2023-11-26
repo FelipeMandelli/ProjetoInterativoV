@@ -46,7 +46,7 @@ func (h *Handler) AttendanceReceiveHandler(w http.ResponseWriter, r *http.Reques
 	}
 
 	if h.Provider.DbIsON {
-		err := PersistAtendance(h.Provider, receivedPack.TeacherID, receivedPack.AttendanceIDs)
+		err := PersistAtendance(h.Provider, receivedPack.TeacherID, receivedPack.AttendanceIDs, receivedPack.SendingTime)
 		if err != nil {
 			h.Provider.Log.Sugar().Error("error persisting received pack: ", err)
 		}

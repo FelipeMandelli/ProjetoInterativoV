@@ -1,7 +1,9 @@
 package dto
 
+import "time"
+
 type PackagerDTO struct {
-	SendingTime   string
+	SendingTime   time.Time
 	TeacherID     string
 	AttendanceIDs []string
 }
