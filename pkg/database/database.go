@@ -1,7 +1,6 @@
 package database
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/FelipeMandelli/ProjetoInterativoV/pkg/entities"
@@ -83,7 +82,7 @@ func FidExistentAttendace(db *gorm.DB, professorID, date, schedule string) (*ent
 	result := db.Where("professor_id = ? AND schedule = ? AND date = ?", professorID, schedule, date).First(att)
 
 	if result.Error != nil {
-		return nil, false, fmt.Errorf("could not check the bank for existance")
+		return nil, false, fmt.Errorf("could not check the db for existance: [%w]", result.Error)
 	}
 
 	if result.RowsAffected == 1 {
@@ -91,7 +90,7 @@ func FidExistentAttendace(db *gorm.DB, professorID, date, schedule string) (*ent
 	}
 
 	if result.RowsAffected > 1 {
-		return nil, true, errors.New(fmt.Sprintf("founded more than one attendace for teacher [%s] date [%s] and schedule [%s]. Will not process", professorID, date, schedule))
+		return nil, true, fmt.Errorf("founded more than one attendace for teacher [%s] date [%s] and schedule [%s]. Will not process", professorID, date, schedule)
 	}
 
 	return &entities.Attendance{}, false, nil
