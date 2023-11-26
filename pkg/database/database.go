@@ -81,7 +81,7 @@ func FidExistentAttendace(db *gorm.DB, professorID, date, schedule string) (*ent
 
 	result := db.Where("professor_id = ? AND schedule = ? AND date = ?", professorID, schedule, date).First(&att)
 
-	if result.Error != nil {
+	if result.Error != nil && result.Error != gorm.ErrRecordNotFound {
 		return nil, false, fmt.Errorf("could not check the db for existance: [%w]", result.Error)
 	}
 
