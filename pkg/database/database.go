@@ -69,7 +69,7 @@ func FindSubjectByProfessorAndWeekdayAndSchedule(db *gorm.DB, professor, year, w
 	var subject entities.Subject
 
 	err := db.Where("professor_id = ? AND week_day = ? AND (schedule = ? OR ?) AND reference_year = ?", professor, weekday, schedule, "3", year).First(&subject).Error
-	if err != nil {
+	if err != nil || subject.ProfessorID != professor || subject.Year != year || subject.WeekDay != weekday || (subject.Schedule != schedule && subject.Schedule != "3") {
 		return nil, fmt.Errorf("could not find subject by given info: [%w]", err)
 	}
 
