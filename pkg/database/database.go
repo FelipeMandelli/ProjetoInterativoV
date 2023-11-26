@@ -66,22 +66,14 @@ func FindProfessorByID(db *gorm.DB, id string) (*entities.Professor, error) {
 }
 
 func FindSubjectByProfessorAndWeekdayAndSchedule(db *gorm.DB, professor, year, weekday, schedule string) (*entities.Subject, error) {
-	var subjects []entities.Subject
+	var subject entities.Subject
 
-	fmt.Printf("checking for subject using professor [%s], year [%s], weekday [%s], schedule [%s]", professor, year, weekday, schedule)
-
-	err := db.Where("professor_id = ? AND  reference_year = ?", professor, year).Find(&subjects).Error
+	err := db.Where("professor_id = ? AND week_day = ? AND (schedule = ? OR ?) AND reference_year = ?", professor, weekday, schedule, "3", year).First(&subject).Error
 	if err != nil {
 		return nil, fmt.Errorf("could not find subject by given info: [%w]", err)
 	}
 
-	for _, s := range subjects {
-		if s.WeekDay == weekday && s.Schedule == schedule {
-			return &s, nil
-		}
-	}
-
-	return nil, fmt.Errorf("could not find subject by given info: [%w]", err)
+	return &subject, nil
 }
 
 func FindExistentAttendace(db *gorm.DB, professorID, date, schedule string) (*entities.Attendance, bool, error) {
