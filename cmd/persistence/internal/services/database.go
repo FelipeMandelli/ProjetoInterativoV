@@ -80,7 +80,7 @@ func PersistAtendance(p *Provider, teacherTag string, studentTags []string, rece
 
 	if !ok {
 		att.Date = receivedTime.Format(config.DateFormater)
-		att.Schedule = strconv.Itoa(subject.Schedule)
+		att.Schedule = subject.Schedule
 		att.SubjectID = strconv.Itoa(int(subject.ID))
 		att.ProfessorID = professor.IDBiometry
 	}

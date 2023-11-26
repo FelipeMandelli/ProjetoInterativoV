@@ -1,6 +1,9 @@
 package entities
 
-import "errors"
+import (
+	"errors"
+	"strconv"
+)
 
 type Registry struct {
 	IDBiometry      string `json:"id"`
@@ -81,12 +84,12 @@ func (r *Registry) ToProfessor() (*Professor, error) {
 func (r *SubjectRegistry) ToSubject() *Subject {
 	return &Subject{
 		Name:             r.Name,
-		Semester:         r.Semester,
+		Semester:         strconv.Itoa(r.Semester),
 		Year:             r.Year,
 		ProfessorName:    r.ProfessorName,
 		ProfessorID:      r.ProfessorID,
 		StudentsEnrolled: r.StudentsEnrolled,
-		WeekDay:          r.WeekDay,
-		Schedule:         r.Schedule,
+		WeekDay:          strconv.Itoa(r.WeekDay),
+		Schedule:         strconv.Itoa(r.Schedule),
 	}
 }

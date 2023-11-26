@@ -8,13 +8,13 @@ import (
 type Subject struct {
 	gorm.Model
 	Name             string `gorm:"column:name"`
-	Semester         int    `gorm:"column:reference_semester"`
+	Semester         string    `gorm:"column:reference_semester"`
 	Year             string `gorm:"column:reference_year"`
 	ProfessorName    string `gorm:"column:professor_name"`
 	ProfessorID      string `gorm:"primary_key;column:professor_id"`
 	StudentsEnrolled string `gorm:"column:students_enrolled_ids"`
-	WeekDay          int    `gorm:"primary_key;column:week_day"`
-	Schedule         int    `gorm:"primary_key;column:schedule"`
+	WeekDay          string    `gorm:"primary_key;column:week_day"`
+	Schedule         string    `gorm:"primary_key;column:schedule"`
 }
 
 func (s *Subject) BeforeCreate(tx *gorm.DB) (err error) {
